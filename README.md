@@ -1,24 +1,15 @@
-# README
+# GANVA -alpha
+ポートフォリオとして作成中の、ボルダリングコミュニティ支援アプリです。
+日々のボルダリング活動の記録を投稿でき、他の人の活動を応援することができます。
+自分と同じレベルの人や、同じジムに通う人を見つけて、応援し合う仲間に出会えます。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 使用技術
+- Ruby 2.6.4, Rails 6.0.2
+- Docker,Docker-compose
+- PostgreSQL
+- ...適宜追加
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 機能一覧
+- 管理ユーザー機能(ユーザー、投稿を削除)
+- ユーザー登録,ログイン,編集機能
+- ...適宜追加

@@ -20,6 +20,8 @@ gem 'nokogiri'
 gem 'rails-i18n'
 gem 'valid_email2'
 gem 'devise'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

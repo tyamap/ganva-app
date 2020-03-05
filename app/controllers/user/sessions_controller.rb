@@ -3,7 +3,7 @@ class User::SessionsController < User::Base
 
   def new
     if current_user
-      redirect_to :user_root
+      redirect_to :user_home
     else
       @form = User::LoginForm.new
       render action: 'new'
@@ -17,7 +17,7 @@ class User::SessionsController < User::Base
       session[:user_id] = user.id
       session[:last_access_time] = Time.current
       flash.notice = 'ログインしました。'
-      redirect_to :user_root
+      redirect_to :user_home
     else
       flash.now.alert = 'メールアドレスまたはパスワードが正しくありません。'
       render action: 'new'

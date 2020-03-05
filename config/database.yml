@@ -17,5 +17,5 @@ test:
 production:
   <<: *default
   database: ganva_production
-  username: ganva
+  username: postgres
   password: <%= ENV['GANVA_DATABASE_PASSWORD'] %>

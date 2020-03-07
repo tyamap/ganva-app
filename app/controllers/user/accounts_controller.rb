@@ -1,4 +1,12 @@
 class User::AccountsController < User::Base
+  skip_before_action :authorize, only: [:new, :create]
+
+  def new
+  end
+
+  def create
+  end
+
   def home
     @current_user = current_user
     render action: 'home'

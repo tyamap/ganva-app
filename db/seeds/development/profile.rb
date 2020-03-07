@@ -1,1 +1,0 @@
-Profile.create!(user_id: '1', experience: '5', frequency: '1',level: '3', status: 'stable') 

@@ -1,6 +1,6 @@
 <% @title = '@' + @show_user.uid %>
 <h1><%= @title %></h1>
 <h2><%= @show_user.name %>さん</h2>
-<h2>レベル： <%= @profile.level %></h2>
+<h2>ひとこと： <%= @show_user.introduction %></h2>
 
 <p><%= link_to 'アクティビティ', :user_user_activities %></p>

@@ -7,15 +7,11 @@ class CreateUsers < ActiveRecord::Migration[6.0]
 
       t.string :hashed_password       # パスワード
 
-      t.timestamps
-    end
-
-    create_table :profiles do |t|
-      t.belongs_to :user, null: false, index: { unique: true }, foreign_key: true
       t.string :experience, null: false    # 経験 
       t.string :frequency, null: false     # ボルダリング頻度
       t.string :level, null: false         # レベル
       t.string :status, null: false        # ステータス
+      t.string :introduction, null:false, default: ''
 
       t.timestamps
     end

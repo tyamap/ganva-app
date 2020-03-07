@@ -35,6 +35,9 @@ Style/FrozenStringLiteralComment:
 Metrics/AbcSize:
     Max: 40
 
+Metrics/MethodLength:
+    Max: 15
+
 Rails/HelperInstanceVariable:
     Enabled: false
 

@@ -1,0 +1,14 @@
+<%= markup do |m|
+  p = UserFormPresenter.new(f, self)
+  m << p.notes
+  p.with_options(required: true) do |q|
+    m << p.text_field_block(:email, "メールアドレス", size: 32)
+    m << p.password_field_block(:password, "パスワード", size: 32)
+    m << p.text_field_block(:uid, "ID", size: 16)
+    m << p.text_field_block(:name, "名前", size: 32)
+    m << p.drop_down_list_block(:experience, 'ボルダリング経験年数', %w(hoge fuga))
+    m << p.drop_down_list_block(:frequency, '登る頻度', %w(たまに まれに つねに))
+    m << p.drop_down_list_block(:level, 'レベル', %w(1 2 3 4 5))
+    m << p.text_field_block(:introduction, "自己紹介", size: 140)
+  end
+end %>

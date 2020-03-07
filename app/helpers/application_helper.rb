@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include HtmlBuilder
+
   # タイトル表示を作成
   def document_title
     if @title.present?

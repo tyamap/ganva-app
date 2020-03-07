@@ -1,5 +1,4 @@
 class User::ActivitiesController < User::Base
-
   def index
     if params[:uid]
       uid = params[:uid]
@@ -10,13 +9,9 @@ class User::ActivitiesController < User::Base
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
-
+  def edit; end
 end

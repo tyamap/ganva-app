@@ -1,7 +1,7 @@
 class User::Base < ApplicationController
   before_action :authorize
   before_action :check_timeout
-  
+
   helper_method :current_user
 
   private
@@ -10,7 +10,6 @@ class User::Base < ApplicationController
   def current_user
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
-
 
   # セッションによるフィルタリング
   def authorize

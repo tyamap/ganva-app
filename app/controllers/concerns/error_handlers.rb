@@ -11,20 +11,20 @@ module ErrorHandlers
 
   private
 
-  def rescue400(_e)
+  def rescue400(_exception)
     render 'errors/bad_request', statfus: 400
   end
 
-  def rescue403(e)
-    @exception = e
+  def rescue403(exception)
+    @exception = exception
     render 'errors/forbidden', status: :forbidden
   end
 
-  def rescue404(_e)
+  def rescue404(_exception)
     render 'errors/not_found', status: :not_found
   end
 
-  def rescue500(_e)
+  def rescue500(_exception)
     render 'errors/internal_server_error', status: :internal_server_error
   end
 end

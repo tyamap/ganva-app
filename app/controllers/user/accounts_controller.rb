@@ -1,4 +1,10 @@
 class User::AccountsController < User::Base
+  def new
+  end
+
+  def create
+  end
+
   def home
     @current_user = current_user
     render action: 'home'

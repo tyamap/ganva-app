@@ -1,4 +1,6 @@
 class User::AccountsController < User::Base
+  skip_before_action :authorize, only: [:new, :create]
+
   def new
   end
 

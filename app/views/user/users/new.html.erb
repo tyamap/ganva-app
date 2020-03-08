@@ -1,2 +1,12 @@
 <% @title = '新規登録'%>
 <h1><%= @title %></h1>
+
+<div id="generic-form">
+  <%= form_with model: @new_user, url: :user_users do |f| %>
+    <%= render "form", f: f %>
+    <div class="button">
+      <%= f.submit "登録" %>
+      <%= link_to "キャンセル", :user_login %>
+    </div>
+  <% end %>
+</div>

@@ -20,6 +20,11 @@ ActiveRecord::Schema.define(version: 2020_03_04_130139) do
     t.string "uid", null: false
     t.string "name", null: false
     t.string "hashed_password"
+    t.string "experience", default: "", null: false
+    t.string "frequency", default: "", null: false
+    t.string "level", default: "", null: false
+    t.string "introduction", default: "", null: false
+    t.string "status", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "lower((email)::text)", name: "index_users_on_LOWER_email", unique: true

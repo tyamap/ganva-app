@@ -6,6 +6,9 @@ class User::UsersController < User::Base
     @show_user = User.find_by(uid: uid)
   end
 
+  def index
+  end
+
   def new
     @new_user = User.new
   end

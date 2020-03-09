@@ -2,8 +2,8 @@ class User::ActivitiesController < User::Base
   def index
     if params[:uid]
       uid = params[:uid]
-      @show_user = User.find_by(uid: uid)
-      @activities = @show_user.name + 'さんのアクティビティ'
+      @user = User.find_by(uid: uid)
+      @activities = @user.name + 'さんのアクティビティ'
     else
       @activities = 'あなたのアクティビティ'
     end

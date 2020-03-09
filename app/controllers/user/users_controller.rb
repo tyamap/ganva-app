@@ -3,7 +3,7 @@ class User::UsersController < User::Base
 
   def show
     uid = params[:uid]
-    @show_user = User.find_by(uid: uid)
+    @user = User.find_by(uid: uid)
   end
 
   def index

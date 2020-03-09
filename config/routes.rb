@@ -15,8 +15,7 @@ Rails.application.routes.draw do
     scope '/:uid' do
       resources :activities,    only: [ :index, :show ],            as: :user_activities
       resources :achievements,  only: [ :index, :show ],            as: :user_achievements
-      resources :followings,     only: [ :index ],                   as: :user_followings
-      resources :followers,     only: [ :index ],                   as: :user_followers
+      get :following, :followers
     end
   end
 end

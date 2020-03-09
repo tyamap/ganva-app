@@ -3,4 +3,13 @@
 <h2><%= @show_user.name %>さん</h2>
 <h2>ひとこと： <%= @show_user.introduction %></h2>
 
-<p><%= link_to 'アクティビティ', :user_user_activities %></p>
+  <% if @show_user %>
+    <div class="user_menu" >
+      <ul>
+        <li><%= link_to 'アクティビティ', :user_user_activities %></li>
+        <li><%= link_to 'アチーブメント', :user_user_achievements %></li>
+        <li><%= link_to 'フォロー中', :user_user_followings %></li>
+        <li><%= link_to 'フォロワー', :user_user_followers %></li>
+      </ul>
+    </div>
+  <% end  %>

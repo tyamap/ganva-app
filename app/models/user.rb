@@ -1,5 +1,9 @@
 class User < ApplicationRecord
+  validates :name, presence: true, length:{ maximum: 50 }
+  validates :uid, presence: true, length:{ maximum: 15 }
+
   include PasswordHolder
+  include EmailHolder
 
   # 能動的関係 つまりフォロー中ユーザーのこと
   has_many :active_relationships, class_name:  "Relationship",

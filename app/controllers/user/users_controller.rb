@@ -6,27 +6,26 @@ class User::UsersController < User::Base
     @user = User.find_by(uid: uid)
   end
 
-  def index
-  end
+  def index; end
 
   def new
     @new_user = User.new
   end
-  
+
   def create
     @new_user = User.new(user_params)
     if @new_user.save
-      flash.notice = "アカウントを新規登録しました。"
+      flash.notice = 'アカウントを新規登録しました。'
       redirect_to :user_login
     else
-      render action: "new"
+      render action: 'new'
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :name, :uid, 
-      :experience, :frequency, :level, :introduction)
+    params.require(:user).permit(:email, :password, :name, :uid,
+                                 :experience, :frequency, :level, :introduction)
   end
 end

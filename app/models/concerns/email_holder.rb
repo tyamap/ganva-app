@@ -8,7 +8,7 @@ module EmailHolder
       self.email = normalize_as_email(email)
     end
 
-    validates :email, presence: true, "valid_email_2/email": true, 
-        uniqueness: { case_sensitive: false }, length:{ maximum: 255 }
+    validates :email, presence: true, "valid_email_2/email": true,
+                      uniqueness: { case_sensitive: false }, length: { maximum: 255 }
   end
 end

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
-  validates :uid, presence: true, length: { maximum: 15 }
 
+  include UserIdHolder
   include PasswordHolder
   include EmailHolder
 

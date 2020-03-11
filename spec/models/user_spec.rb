@@ -57,42 +57,58 @@ RSpec.describe User, type: :model do
   end
 
   describe "Normalization" do
-    it "Emailの前後の空白を除去する" do
+    example "Emailの前後の空白を除去する" do
       user = create(:user, email: " test@example.com")
       expect(user.email).to eq("test@example.com")
     end
 
-    it "Emailの全角文字は半角文字に変換する" do
+    example "Emailの全角文字は半角文字に変換する" do
       user = create(:user, email: "ｔｅｓｔ＠ｅｘａｍｐｌｅ．ｃｏｍ")
       expect(user.email).to eq("test@example.com")
     end
 
-    it "Emailの前後の全角空白を除去する" do
+    example "Emailの前後の全角空白を除去する" do
       user = create(:user, email: "\u{3000}test@example.com\u{3000}")
       expect(user.email).to eq("test@example.com")
     end
   end
 
   describe "validation" do
-    it "Emailに連続＠を含むものはNG" do
+    example "Emailに連続＠を含むものはNG" do
       user = build(:user, email: "test@@example.com")
       expect(user).not_to be_valid
     end
     
-    it "アルファベットを含む名前はOK" do
+    example "アルファベットを含む名前はOK" do
       user = build(:user, name: "Smith")
       expect(user).to be_valid
     end
     
-    it "記号を含む名前はOK" do
+    example "記号を含む名前はOK" do
       user = build(:user, name: "試験★")
       expect(user).to be_valid
     end
     
-    it "重複したEmailはNG" do
+    example "重複したEmailはNG" do
       user1 = create(:user)
       user2 = build(:user, email: user1.email)
       expect(user2).not_to be_valid
+    end
+
+    example "全角文字を含むUIDはNG" do
+      user = build(:user, uid: "あいう")
+      expect(user).not_to be_valid
+    end
+
+    example "重複したUIDはNG" do
+      user1 = create(:user)
+      user2 = build(:user, uid: user1.uid)
+      expect(user2).not_to be_valid
+    end
+
+    example "ハイフンやアンダースコアを含むUIDはOK" do
+      user = build(:user, uid: "a_b-c")
+      expect(user).to be_valid
     end
   end
 end

@@ -1,18 +1,14 @@
 class User < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 50 }
-  validates :uid, presence: true, length: { maximum: 15 }
-
   include PasswordHolder
   include EmailHolder
 
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :uid, presence: true, length: { maximum: 15 }, 
+
   # 能動的関係 つまりフォロー中ユーザーのこと
-  has_many :active_relationships, class_name: 'Relationship',
-                                  foreign_key: 'follower_id',
-                                  dependent: :destroy
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
   # 受動的関係 つまりフォロワーのこと
-  has_many :passive_relationships, class_name: 'Relationship',
-                                   foreign_key: 'followed_id',
-                                   dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
 
   #  following という名前で followed_id リストを扱う
   has_many :following, through: :active_relationships, source: :followed

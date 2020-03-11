@@ -96,16 +96,20 @@ RSpec.describe User, type: :model do
     end
 
     example "全角文字を含むUIDはNG" do
-      user = create(:user, uid: "あいう")
+      user = build(:user, uid: "あいう")
       expect(user).not_to be_valid
     end
 
     example "重複したUIDはNG" do
       user1 = create(:user)
-      user2 = create(:user, uid: user1.uid)
+      user2 = build(:user, uid: user1.uid)
       expect(user2).not_to be_valid
     end
-    
+
+    example "ハイフンやアンダースコアを含むUIDはOK" do
+      user = build(:user, uid: "a_b-c")
+      expect(user).to be_valid
+    end
   end
 end
   

@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include PasswordHolder
   include EmailHolder
 
+
+
   # 能動的関係 つまりフォロー中ユーザーのこと
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',

@@ -4,13 +4,14 @@
 <section class="stats">
   <%= render 'user/shared/stats' %>
 </section>
+<%= render 'follow_form' if current_user %>
 <h2>ひとこと： <%= @user.introduction %></h2>
 
   <% if @user %>
     <div class="user_menu" >
       <ul>
-        <li><%= link_to 'アクティビティ', :user_user_activities %></li>
-        <li><%= link_to 'アチーブメント', :user_user_achievements %></li>
+        <li><%= link_to 'アクティビティ', "/users/#{@user.id}/activities" %></li>
+        <li><%= link_to 'アチーブメント', "/users/#{@user.id}/achievements" %></li>
       </ul>
     </div>
   <% end  %>

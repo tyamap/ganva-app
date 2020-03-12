@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include PasswordHolder
   include EmailHolder
 
+
+
   # 能動的関係 つまりフォロー中ユーザーのこと
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
@@ -19,7 +21,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+    following << other_user
   end
 
   def unfollow(other_user)

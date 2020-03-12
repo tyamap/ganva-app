@@ -1,5 +1,10 @@
 <header>
-  <%= link_to 'GANVA!', :user_root, class: 'logo-mark' %>
+  <% if current_user %>
+    <%= link_to 'GANVA!', :user_home, class: 'logo-mark' %>
+  <% else %>
+    <%= link_to 'GANVA!', :user_root, class: 'logo-mark' %>
+  <% end %>
+
   <%= content_tag(:span, flash.notice, class: 'notice') if flash.notice %>
   <%= content_tag(:span, flash.alert, class: 'alert') if flash.alert %>
   <%=
@@ -15,7 +20,7 @@
         <li><%= link_to 'アクティビティ', :user_activities %></li>
         <li><%= link_to 'アチーブメント', :user_achievements %></li>
         <li><%= link_to 'ボルともを探す', :user_users %></li>
-        <li><%= link_to 'アカウント設定', :user_account %></li>
+        <li><%= link_to 'アカウント設定', :user_user %></li>
       </ul>
     </div>
   <% end  %>

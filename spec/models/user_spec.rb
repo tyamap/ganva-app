@@ -111,5 +111,29 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
   end
+
+  describe "follow and unfollow" do
+    before do
+      @spidey = create(:user)
+      @ironman = create(:user)
+    end
+    
+    example "最初はフォローフォロワー関係にない" do
+      expect(@spidey.following?(@ironman)).to be_falsey
+    end
+    example "他の人をフォローすることができる" do
+      @spidey.follow(@ironman)
+      expect(@spidey.following?(@ironman)).to be_truthy
+    end
+    example "フォローした人のフォロワーリストに入る" do
+      @spidey.follow(@ironman)
+      expect(@ironman.followers.include?(@spidey)).to be_truthy
+    end
+    example "フォロー解除することができる" do
+      @spidey.follow(@ironman)
+      @spidey.unfollow(@ironman)
+      expect(@spidey.following?(@ironman)).to be_falsey
+    end
+  end
 end
   

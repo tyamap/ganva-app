@@ -4,6 +4,7 @@
 <section class="stats">
   <%= render 'user/shared/stats' %>
 </section>
+<%= render 'follow_form' if current_user %>
 <h2>ひとこと： <%= @user.introduction %></h2>
 
   <% if @user %>

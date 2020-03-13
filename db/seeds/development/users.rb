@@ -33,8 +33,8 @@ User.create!(
     User.create!(
       email: "#{un1[1]}_#{un2[1]}@example.com",
       password: "password",
-      name: un1[0] + un2[0],
-      uid: un1[1] + un2[1],
+      name: un1[0] + '_' + un2[0],
+      uid: un1[1][0..2] + un2[1],
       experience: n % 10, 
       frequency: n % 5,
       level: n % 6, 

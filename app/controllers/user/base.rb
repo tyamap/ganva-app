@@ -12,10 +12,6 @@ class User::Base < ApplicationController
     @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
   end
 
-  def current_user?(user)
-    current_user.equal?(user)
-  end
-  
   # セッションによるフィルタリング
   def authorize
     return if current_user

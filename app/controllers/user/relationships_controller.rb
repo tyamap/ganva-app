@@ -2,12 +2,17 @@ class User::RelationshipsController < User::Base
   before_action :current_user
 
   def create
-    @f_user = User.find(params[:relationship][:following_id])
-    current_user.follow!(@f_user)
+    user = User.find(params[:followed_id])
+    current_user.follow(user)
+    respond_to do |format|
+      format.html { redirect_to @user }
+      format.js
+    end
   end
 
   def destroy
-    @f_user = Relationship.find(params[:id]).following
-    current_user.unfollow!(@f_user)
+    user = Relationship.find(params[:id]).followed
+    current_user.unfollow(user)
+    redirect_to user
   end
 end

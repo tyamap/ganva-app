@@ -3,7 +3,6 @@ class User::Base < ApplicationController
   before_action :check_timeout
 
   helper_method :current_user
-  helper_method :current_user?
 
   private
 

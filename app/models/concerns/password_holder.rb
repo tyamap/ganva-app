@@ -1,5 +1,8 @@
 module PasswordHolder
   extend ActiveSupport::Concern
 
-  validates :password, length: { minimum: 6 }
+  included do
+    
+    validates :password, length: { minimum: 6 }
+  end
 end

@@ -1,11 +1,11 @@
 class CreateUsers < ActiveRecord::Migration[6.0]
   def change
     create_table :users do |t|
-      t.string :email, null: false    # メールアドレス
-      t.string :uid, null: false      # アカウントID
-      t.string :name, null: false     # アカウント名
+      t.string :email, null: false                # メールアドレス
+      t.string :password_digest, null:false       # パスワード
 
-      t.string :hashed_password       # パスワード
+      t.string :uid, null: false                  # アカウントID
+      t.string :name, null: false, default: ''     # アカウント名
 
       t.string :experience, null: false, default: ''    # 経験 
       t.string :frequency, null: false, default: ''     # ボルダリング頻度

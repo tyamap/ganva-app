@@ -9,6 +9,7 @@ module UserIdHolder
     end
 
     validates :uid, presence: true, uniqueness: { case_sensitive: false },
-      format: { with: /\A[\-_a-zA-Z\d]+\z/ }, length: { maximum: 15 }
+      length: { maximum: 15 },
+      format: { with: /\A[\-_a-zA-Z\d]+\z/, message: 'は英数字と「-」「_」のみ使用できます。'}
   end
 end

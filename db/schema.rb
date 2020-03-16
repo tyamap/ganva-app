@@ -16,20 +16,20 @@ ActiveRecord::Schema.define(version: 2020_03_09_140639) do
   enable_extension "plpgsql"
 
   create_table "relationships", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "follow_id"
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["follow_id"], name: "index_relationships_on_follow_id"
-    t.index ["user_id", "follow_id"], name: "index_relationships_on_user_id_and_follow_id", unique: true
-    t.index ["user_id"], name: "index_relationships_on_user_id"
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
+    t.string "password_digest", null: false
     t.string "uid", null: false
-    t.string "name", null: false
-    t.string "hashed_password"
+    t.string "name", default: "", null: false
     t.string "experience", default: "", null: false
     t.string "frequency", default: "", null: false
     t.string "level", default: "", null: false
@@ -41,6 +41,4 @@ ActiveRecord::Schema.define(version: 2020_03_09_140639) do
     t.index "lower((uid)::text)", name: "index_users_on_LOWER_uid", unique: true
   end
 
-  add_foreign_key "relationships", "users"
-  add_foreign_key "relationships", "users", column: "follow_id"
 end

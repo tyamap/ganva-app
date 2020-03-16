@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     get 'login' => 'sessions#new', as: :login
     resource :session,          only: [ :create, :destroy ]
     
-    get '/home' => 'users#home', as: :home
+    get 'home' => 'users#home', as: :home
     resource :user, expect: [ :new, :create ]
     resources :activities
     resources :achievements
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     resources :users do
       member do
-        get :followings, :followers
+        get :following, :followers
         resources :activities,    only: [ :index, :show ]
         resources :achievements,  only: [ :index, :show ]
       end

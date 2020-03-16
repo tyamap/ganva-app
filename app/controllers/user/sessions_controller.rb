@@ -13,7 +13,7 @@ class User::SessionsController < User::Base
   def create
     @form = User::LoginForm.new(login_form_params)
     user = User.find_by('LOWER(email) = ?', @form.email.downcase) if @form.email.present?
-    if User::Authenticator.new(user).authenticate(@form.password)
+    if user && user.authenticate(@form.password)
       session[:user_id] = user.id
       session[:last_access_time] = Time.current
       flash.notice = 'ログインしました。'

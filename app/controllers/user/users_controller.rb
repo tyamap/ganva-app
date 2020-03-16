@@ -12,23 +12,27 @@ class User::UsersController < User::Base
   def index; end
 
   def new
-    @new_user = User.new
+    @user = User.new(flash[:user])
   end
 
   def create
-    @new_user = User.new(user_params)
-    if @new_user.save
-      flash.notice = 'アカウントを新規登録しました。'
-      redirect_to :user_login
+    user = User.new(user_params)
+    user.name = user_params[:uid]
+    if user.save
+      session[:user_id] = user.id
+      session[:last_access_time] = Time.current
+      redirect_to :user_home
     else
-      render action: 'new'
+      redirect_back fallback_location: :user_users_new, flash: {
+        user: user,
+        error_messages: user.errors.full_messages
+      }
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :name, :uid,
-                                 :experience, :frequency, :level, :introduction)
+    params.require(:user).permit(:email, :password, :password_confirmation, :uid)
   end
 end

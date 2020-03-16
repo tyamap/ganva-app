@@ -1,8 +1,9 @@
 <% @title = '新規登録'%>
 <h1><%= @title %></h1>
 
+<%= render 'shared/error_messages' %>
 <div id="generic-form">
-  <%= form_with model: @new_user, url: :user_users do |f| %>
+  <%= form_with model: @user, url: :user_users do |f| %>
     <%= render "form", f: f %>
     <div class="button">
       <%= f.submit "登録" %>

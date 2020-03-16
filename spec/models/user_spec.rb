@@ -41,22 +41,21 @@ RSpec.describe User, type: :model do
     end
   end
   
-  describe '#password=' do
-    example '文字列を与えると60文字の hashed_password を返す' do
-      user = User.new
-      user.password = 'password'
-      expect(user.hashed_password).to be_kind_of(String)
-      expect(user.hashed_password.size).to eq(60)
+  describe '#password' do
+    example '文字列を与えると60文字の password_digest を返す' do
+      user = create(:user, password: "password")
+      expect(user.password_digest).to be_kind_of(String)
+      expect(user.password_digest.size).to eq(60)
     end
     
     example 'nilを与えるとnilになる' do
-      user = User.new(hashed_password: 'x')
+      user = create(:user, password: "password")
       user.password = nil
-      expect(user.hashed_password).to be_nil
+      expect(user.password_digest).to be_nil
     end
   end
 
-  describe "Normalization" do
+  describe "#normalization" do
     example "Emailの前後の空白を除去する" do
       user = create(:user, email: " test@example.com")
       expect(user.email).to eq("test@example.com")
@@ -73,7 +72,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "validation" do
+  describe "#validation" do
     example "Emailに連続＠を含むものはNG" do
       user = build(:user, email: "test@@example.com")
       expect(user).not_to be_valid

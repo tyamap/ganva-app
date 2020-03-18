@@ -1,3 +1,33 @@
 <% @title = 'アクティビティ一覧'%>
 <h1><%= @title %></h1>
 <p><%= @activities %></p>
+
+<div class="table-wrapper">
+  <div class="links">
+    <%= link_to "新規登録", :new_user_activity %>
+  </div>
+
+  <table class="listing">
+    <tr>
+      <th>タイトル</th>
+      <th>種類</th>
+      <th>アクション</th>
+    </tr>
+    <% @user.activities.each do |a| %>
+      <tr>
+        <td><%= a.name %></td>
+        <td><%= a.type %></td>
+        <td class="actions">
+          <%= link_to "詳細", [ :user, a ] %> |
+          <%= link_to "編集", [ :edit, :user, a ] %> |
+          <%= link_to "削除", [ :user, a ], method: :delete,
+            data: { confirm: "本当に削除しますか？" } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="links">
+    <%= link_to "新規登録", :new_user_activity %>
+  </div>
+</div>

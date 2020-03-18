@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_140639) do
+ActiveRecord::Schema.define(version: 2020_03_17_142427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "type", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["type", "user_id"], name: "index_activities_on_type_and_user_id", unique: true
+    t.index ["user_id"], name: "index_activities_on_user_id"
+  end
 
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
@@ -41,4 +52,5 @@ ActiveRecord::Schema.define(version: 2020_03_09_140639) do
     t.index "lower((uid)::text)", name: "index_users_on_LOWER_uid", unique: true
   end
 
+  add_foreign_key "activities", "users"
 end

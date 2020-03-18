@@ -9,7 +9,7 @@ class CreateActivities < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :activities, [ :type, :user_id ], unique: true
+    add_index :activities, [ :type, :user_id ]
     add_foreign_key :activities, :users
   end
 end

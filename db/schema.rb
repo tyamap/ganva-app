@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_03_17_142427) do
     t.text "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["type", "user_id"], name: "index_activities_on_type_and_user_id", unique: true
+    t.index ["type", "user_id"], name: "index_activities_on_type_and_user_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 

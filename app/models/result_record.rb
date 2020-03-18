@@ -1,3 +1,2 @@
-class ResultRecord < Record 
-  
+class ResultRecord < Record
 end

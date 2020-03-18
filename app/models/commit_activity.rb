@@ -1,3 +1,0 @@
-class CommitActivity < Activity
-  
-end

@@ -17,8 +17,7 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   # activity
-  has_many :commit_activities, dependent: :destroy, autosave: true
-  has_many :result_activities, dependent: :destroy, autosave: true
+  has_many :activities, dependent: :destroy, autosave: true
 
   # ユーザーをフォローする
   def follow(other_user)

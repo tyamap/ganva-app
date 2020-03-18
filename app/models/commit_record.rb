@@ -1,0 +1,3 @@
+class CommitRecord < Record 
+  
+end

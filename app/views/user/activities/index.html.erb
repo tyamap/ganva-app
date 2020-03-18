@@ -9,14 +9,18 @@
 
   <table class="listing">
     <tr>
+      <th>日付</th>
       <th>タイトル</th>
-      <th>種類</th>
+      <th>宣言</th>
+      <th>結果</th>
       <th>アクション</th>
     </tr>
     <% @user.activities.each do |a| %>
       <tr>
-        <td><%= a.name %></td>
-        <td><%= a.type %></td>
+        <td><%= a.date %></td>
+        <td><%= a.title %></td>
+        <td><%= a.commit_record ? 'あり' : 'なし' %></td>
+        <td><%= a.result_record ? 'あり' : 'なし' %></td>
         <td class="actions">
           <%= link_to "詳細", [ :user, a ] %> |
           <%= link_to "編集", [ :edit, :user, a ] %> |

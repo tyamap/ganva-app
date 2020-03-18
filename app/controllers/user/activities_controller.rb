@@ -4,6 +4,7 @@ class User::ActivitiesController < User::Base
       @user = User.find(params[:id])
       @activities = @user.name + 'さんのアクティビティ'
     else
+      @user = current_user
       @activities = 'あなたのアクティビティ'
     end
   end

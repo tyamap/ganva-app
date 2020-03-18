@@ -1,0 +1,3 @@
+class ResultRecord < Record 
+  
+end

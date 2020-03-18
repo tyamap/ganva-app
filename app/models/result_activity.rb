@@ -1,0 +1,3 @@
+class ResultActivity < Activity
+  
+end

@@ -1,3 +1,2 @@
-class CommitRecord < Record 
-  
+class CommitRecord < Record
 end

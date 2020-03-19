@@ -1,2 +1,20 @@
 <% @title = 'ボル友を探す'%>
 <h1><%= @title %></h1>
+<div class="table-wrapper">
+  <table class="listing">
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+    </tr>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.uid %></td>
+        <td><%= u.name %></td>
+        <td><%= u.status %></td>
+        <td class="actions">
+          <%= link_to "詳細", user_users_path + "/#{u.id}"%>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

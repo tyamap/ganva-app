@@ -1,0 +1,11 @@
+<% @title = 'プロフィール設定' %>
+
+<div id="generic-form">
+  <%= form_with model: @user, url: :user_profile do |f| %>
+    <%= render "form", f: f %>
+    <div class="buttons">
+      <%= f.submit "更新" %>
+      <%= link_to "キャンセル", :user_profile %>
+    </div>
+  <% end %>
+</div>

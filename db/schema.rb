@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(version: 2020_03_18_120229) do
     t.string "password_digest", null: false
     t.string "uid", null: false
     t.string "name", default: "", null: false
-    t.string "experience", default: "", null: false
-    t.string "frequency", default: "", null: false
-    t.string "level", default: "", null: false
-    t.string "introduction", default: "", null: false
-    t.string "status", default: "", null: false
+    t.string "experience", default: "未設定", null: false
+    t.string "frequency", default: "未設定", null: false
+    t.string "level", default: "未設定", null: false
+    t.string "introduction", default: "未設定", null: false
+    t.string "status", default: "未設定", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "lower((email)::text)", name: "index_users_on_LOWER_email", unique: true

@@ -1,7 +1,7 @@
 <% @title = 'ボル友を探す'%>
-<h1><%= @title %></h1>
-<div class="table-wrapper">
-  <table class="listing">
+
+<div class='table-wrapper'>
+  <table class='listing'>
     <tr>
       <th>ID</th>
       <th>名前</th>
@@ -11,8 +11,8 @@
         <td><%= u.uid %></td>
         <td><%= u.name %></td>
         <td><%= u.status %></td>
-        <td class="actions">
-          <%= link_to "詳細", user_users_path + "/#{u.id}"%>
+        <td class='actions'>
+          <%= link_to '詳細', user_users_path + "/#{u.id}"%>
         </td>
       </tr>
     <% end %>

@@ -1,3 +1,41 @@
-// Place all the styles related to the user/users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.card-container.card {
+  max-width: 350px;
+  padding: 40px 40px;
+}
+
+.btn {
+  margin-top: 10px;
+  font-weight: 700;
+  height: 36px;
+  user-select: none;
+  cursor: default;
+}
+
+.btn.btn-submit{
+  background-color: rgb(104, 145, 162);
+  padding: 0px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  border-radius: 3px;
+  border: none;
+  transition: all 0.218s;
+}
+
+.btn.btn-cancel{
+  background-color: #808080;
+  padding: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  height: 36px;
+  border-radius: 3px;
+  border: none;
+  transition: all 0.218s;
+}
+
+.btn.btn-submit:hover,
+.btn.btn-submit:active,
+.btn.btn-submit:focus {
+  background-color: rgb(12, 97, 33);
+}

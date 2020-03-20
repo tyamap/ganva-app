@@ -38,10 +38,10 @@
         </div>
       </li>
       <% end  %>
+      <li class='nav-item'>
+        <%= content_tag(:span, flash.notice, class: 'notice') if flash.notice %>
+        <%= content_tag(:span, flash.alert, class: 'alert') if flash.alert %>
+      </li>
     </ul>
   </div>
-  <li class='nav-item'>
-    <%= content_tag(:span, flash.notice, class: 'notice') if flash.notice %>
-    <%= content_tag(:span, flash.alert, class: 'alert') if flash.alert %>
-  </li>
 </nav>

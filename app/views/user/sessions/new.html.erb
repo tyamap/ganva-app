@@ -1,20 +1,19 @@
 <% @title = 'ログイン' %>
 
-<div id='login-form'>
-  
 
+<div class="card card-container">
   <%= form_with model: @form, url: :user_session do |f| %>
     <div>
       <%= f.label :email, 'メールアドレス' %>
-      <%= f.text_field :email %>
+      <%= f.email_field :email, id: "inputEmail", class: "form-control", placeholder:"Email address", autofocus: true %>
     </div>
     <div>
       <%= f.label :password, 'パスワード' %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, id: "inputPassword", class: "form-control", placeholder: "Password" %>
     </div>
     <div>
-      <%= f.submit 'ログイン' %>
+      <%= f.submit 'ログイン', class: "btn btn-lg btn-primary btn-block btn-signin" %>
     </div>
   <% end %>
-<p><%= link_to '新規登録', :new_user_user %></p>
+  <p><%= link_to '新規登録', :new_user_user %></p>
 </div>

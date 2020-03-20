@@ -1,0 +1,32 @@
+<% @title = 'プロフィール' %>
+
+<div class="table-wrapper">
+  <div class="links">
+    <%= link_to "編集", :edit_user_profile %>
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>名前</th>
+      <td>
+        <%= @user.name %>
+      </td>
+    </tr>
+    <tr>
+      <th>経歴</th>
+      <td><%= @user.experience %></td>
+    </tr>
+    <tr>
+      <th>頻度</th>
+      <td><%= @user.frequency %></td>
+    </tr>
+    <tr>
+      <th>レベル</th>
+      <td><%= @user.level %></td>
+    </tr>
+    <tr>
+      <th>ひとこと</th>
+      <td><%= @user.introduction %></td>
+    </tr>
+  </table>
+</div>

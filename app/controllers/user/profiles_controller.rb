@@ -1,8 +1,4 @@
-class User::AccountsController < User::Base
-  def home
-    @user = current_user
-  end
-
+class User::ProfilesController < User::Base
   def show
     @user = current_user
   end
@@ -15,8 +11,8 @@ class User::AccountsController < User::Base
     @user = current_user
     @user.assign_attributes(user_params)
     if @user.save
-      flash.notice = "アカウント情報を更新しました。"
-      redirect_to :user_account
+      flash.notice = "プロフィールを更新しました。"
+      redirect_to :user_profile
     else
       render action: "edit"
     end
@@ -26,7 +22,7 @@ class User::AccountsController < User::Base
   
   def user_params
     params.require(:user).permit(
-      :uid, :email
+      :name, :experience, :frequency, :level, :introduction
     )
   end
 end

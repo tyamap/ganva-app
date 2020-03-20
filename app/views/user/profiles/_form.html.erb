@@ -1,0 +1,11 @@
+<%= markup do |m|
+  p = UserFormPresenter.new(f, self)
+  m << p.notes
+  p.with_options(required: true) do |q|
+    m << p.text_field_block(:name, "名前")
+    m << p.text_field_block(:experience, "経歴")
+    m << p.text_field_block(:frequency, "頻度")
+    m << p.text_field_block(:level, "レベル")
+    m << p.text_field_block(:introduction, "ひとこと")
+  end
+end %>

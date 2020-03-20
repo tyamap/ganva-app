@@ -1,10 +1,5 @@
 class User::UsersController < User::Base
   skip_before_action :authorize, only: %i[new create]
-
-  def home
-    @user = current_user
-  end
-
   def show
     @user = User.find(params[:id])
   end

@@ -1,4 +1,4 @@
-<% @title = 'アカウント設定' %>
+<% @title = 'アカウント情報' %>
 
 <div class="table-wrapper">
   <div class="links">
@@ -9,41 +9,15 @@
   <table class="table">
     <tr>
       <th>ID</th>
-      <td>
-        <%= @user.uid %>
-      </td>
-    </tr>
-    <tr>
-      <th>名前</th>
-      <td>
-        <%= @user.name %>
-      </td>
+      <td><%= @user.uid %></td>
     </tr>
     <tr>
       <th>メールアドレス</th>
-      <td class="email">
-        <%= @user.email %>
-      </td>
+      <td class="email"><%= @user.email %></td>
     </tr>
     <tr>
       <th>パスワード</th>
       <td class="password">**********</td>
-    </tr>
-    <tr>
-      <th>経歴</th>
-      <td><%= @user.experience %></td>
-    </tr>
-    <tr>
-      <th>頻度</th>
-      <td><%= @user.frequency %></td>
-    </tr>
-    <tr>
-      <th>レベル</th>
-      <td><%= @user.level %></td>
-    </tr>
-    <tr>
-      <th>ひとこと</th>
-      <td><%= @user.introduction %></td>
     </tr>
   </table>
 </div>

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resource :session,          only: [ :create, :destroy ]
     
     get 'home' => 'accounts#home', as: :home
-    resource :account, except: [ :new, :create, :destroy ]
+    resource :account, only: [ :show, :edit, :update ]
+    resource :profile, only: [ :show, :edit, :update ]
     resource :password, only: [ :show, :edit, :update ]
     resources :activities
     resources :achievements

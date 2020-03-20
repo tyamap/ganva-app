@@ -1,11 +1,15 @@
 <% @title = 'ボル友を探す'%>
 
 <div class='table-wrapper'>
-  <table class='listing'>
-    <tr>
-      <th>ID</th>
-      <th>名前</th>
-    </tr>
+  <table class='listing table table-hover'>
+    <thead class='thead-dark'>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>status</th>
+        <th></th>
+      </tr>
+    </thead>
     <% @users.each do |u| %>
       <tr>
         <td><%= u.uid %></td>

@@ -6,14 +6,16 @@
     <%= link_to "新規登録", :new_user_activity %>
   </div>
 
-  <table class="listing">
-    <tr>
-      <th>日付</th>
-      <th>タイトル</th>
-      <th>宣言</th>
-      <th>結果</th>
-      <th>アクション</th>
-    </tr>
+  <table class='listing table table-hover'>
+    <thead class='thead-dark'>
+      <tr>
+        <th>日付</th>
+        <th>タイトル</th>
+        <th>宣言</th>
+        <th>結果</th>
+        <th>アクション</th>
+      </tr>
+    </thead>
     <% @user.activities.each do |a| %>
       <tr>
         <td><%= a.date %></td>

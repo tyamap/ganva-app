@@ -1,2 +1,68 @@
-<% @title = 'アクティビティ' %>
+<% @title = @activity.title %>
 <h1><%= @title %></h1>
+
+<div class="table-wrapper">
+  <table class="table">
+    <tr>
+      <th>タイトル</th>
+      <td><%= @activity.title %></td>
+    </tr>
+    <tr>
+      <th>日付</th>
+      <td><%= @activity.date %></td>
+    </tr>
+    <tr>
+      <th>説明</th>
+      <td><%= @activity.description %></td>
+    </tr>
+  </table>
+</div>
+
+<div class="links">
+  <%= link_to "編集", :edit_user_activity %> | 
+  <%= link_to "削除", :edit_user_password %>
+</div>
+
+<% if @commit %>
+<div class="table-wrapper">
+  <table class="table">
+    <thead class='thead-dark'>
+      <tr><th colspan='2'>宣言</th></tr>
+    </thead>
+    <tr>
+      <th>時間</th>
+      <td><%= Time.parse(@commit.start_time).strftime("%X") %> 〜 <%= Time.parse(@commit.end_time).strftime("%X") %></td>
+    </tr>
+    <tr>
+      <th>場所</th>
+      <td><%= @commit.where %></td>
+    </tr>
+    <tr>
+      <th>レベル</th>
+      <td><%= @commit.level %></td>
+    </tr>
+  </table>
+</div>
+<% end %>
+
+<% if @result %>
+<div class="table-wrapper">
+  <table class="table">
+    <thead class='thead-dark'>
+      <tr><th colspan='2'>結果</th></tr>
+    </thead>
+    <tr>
+      <th>時間</th>
+      <td><%= Time.parse(@result.start_time).strftime("%X") %> 〜 <%= Time.parse(@result.end_time).strftime("%X") %></td>
+    </tr>
+    <tr>
+      <th>場所</th>
+      <td><%= @result.where %></td>
+    </tr>
+    <tr>
+      <th>レベル</th>
+      <td><%= @result.level %></td>
+    </tr>
+  </table>
+</div>
+<% end %>

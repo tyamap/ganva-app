@@ -13,10 +13,10 @@ Rails.application.routes.draw do
     resources :relationships,   only: [ :create, :destroy ]
 
     resources :users do
+      resources :activities,    only: [ :index, :show ]
+      resources :achievements,  only: [ :index, :show ]
       member do
         get :following, :followers
-        resources :activities,    only: [ :index, :show ]
-        resources :achievements,  only: [ :index, :show ]
       end
     end
   end

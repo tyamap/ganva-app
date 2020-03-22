@@ -14,12 +14,12 @@
     <ul class='navbar-nav mr-auto'>
       <li class='nav-item active'>
         <%=
-          unless @current_user
+          unless current_user
             link_to 'ログイン', :user_login
           end
         %>
       </li>
-      <% if @current_user %>
+      <% if current_user %>
       <li class='nav-item active'>
         <%= link_to 'アクティビティ', :user_activities, class: 'nav-link' %>
       </li>

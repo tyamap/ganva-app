@@ -44,9 +44,9 @@ ex_users = users[1..5]
 ex_users.each do |u|
   3.times do |n|
     @activity = u.activities.create(
-      title: "#{n+1}回目の挑戦！",
+      title: "レベル#{n+1}に挑戦！",
       date: date.next_day(n),
-      description: "今日はジム#{n%3+1}でレベル#{n%2}に挑戦！#{(n+1)*2}回ゴール達成するまで頑張ります！" 
+      description: "今日はレベル#{n+1}に挑戦！#{(n+1)*2}回ゴール達成するまで頑張ります！" 
     )
     @activity.create_commit_record(
       start_time: date.to_time + (60*60*12),

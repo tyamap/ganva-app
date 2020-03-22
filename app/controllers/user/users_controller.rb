@@ -4,7 +4,9 @@ class User::UsersController < User::Base
     @user = User.find(params[:id])
   end
 
-  def index; end
+  def index
+    @users = User.all
+  end
 
   def new
     @user = User.new(flash[:user])
@@ -23,10 +25,6 @@ class User::UsersController < User::Base
         error_messages: user.errors.full_messages
       }
     end
-  end
-
-  def index
-    @users = User.all
   end
 
   private

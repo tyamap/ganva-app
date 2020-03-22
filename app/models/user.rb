@@ -3,7 +3,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
 
   include UserIdHolder
-  # TODO 最小文字数指定するとuser情報編集時になぜかエラー
+  # TODO: 最小文字数指定するとuser情報編集時になぜかエラー
   # include PasswordHolder
   include EmailHolder
 

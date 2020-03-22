@@ -11,11 +11,11 @@ class User::PasswordsController < User::Base
     @change_password_form = User::ChangePasswordForm.new(user_member_params)
     @change_password_form.object = current_user
     if @change_password_form.save
-      flash.notice = "パスワードを変更しました。"
+      flash.notice = 'パスワードを変更しました。'
       redirect_to :user_account
     else
-      flash.alert = "入力に誤りがあります。"
-      render action: "edit"
+      flash.alert = '入力に誤りがあります。'
+      render action: 'edit'
     end
   end
 

@@ -11,15 +11,15 @@ class User::ProfilesController < User::Base
     @user = current_user
     @user.assign_attributes(user_params)
     if @user.save
-      flash.notice = "プロフィールを更新しました。"
+      flash.notice = 'プロフィールを更新しました。'
       redirect_to :user_profile
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(
       :name, :experience, :frequency, :level, :introduction

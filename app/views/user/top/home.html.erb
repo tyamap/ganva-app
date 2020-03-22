@@ -1,4 +1,9 @@
 <% @title = 'HOME'%>
 <h1><%= @title %></h1>
 
-<h2>おかえりなさい。<%= link_to @user.name + 'さん', "users/#{@user.id}" %></h2>
+<% provide(:title, @user.name) %>
+<h1>
+  <%= gravatar_for @user %>
+  <%= link_to "@#{@user.uid}", [:user, @user] %>
+</h1>
+<h2><%= @user.name + "さん" %></h2>

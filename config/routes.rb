@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     get 'login' => 'sessions#new', as: :login
     resource :session,          only: [ :create, :destroy ]
     
-    get 'home' => 'accounts#home', as: :home
+    get 'home' => 'top#home', as: :home
     resource :account, only: [ :show, :edit, :update ]
     resource :profile, only: [ :show, :edit, :update ]
     resource :password, only: [ :show, :edit, :update ]

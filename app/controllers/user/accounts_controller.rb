@@ -11,15 +11,15 @@ class User::AccountsController < User::Base
     @user = current_user
     @user.assign_attributes(user_params)
     if @user.save
-      flash.notice = "アカウント情報を更新しました。"
+      flash.notice = 'アカウント情報を更新しました。'
       redirect_to :user_account
     else
-      render action: "edit"
+      render action: 'edit'
     end
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(
       :uid, :email

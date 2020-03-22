@@ -4,9 +4,11 @@
 <p><%= @activities %></p>
 
 <div class="table-wrapper">
-  <div class="links">
-    <%= link_to "新規登録", :new_user_activity %>
-  </div>
+  <% if @user == current_user %>
+    <div class="links">
+      <%= link_to "新規登録", :new_user_activity %>
+    </div>
+  <% end %>
 
   <table class='listing table table-hover'>
     <thead class='thead-dark'>
@@ -25,16 +27,20 @@
         <td><%= a.commit_record ? 'あり' : 'なし' %></td>
         <td><%= a.result_record ? 'あり' : 'なし' %></td>
         <td class="actions">
-          <%= link_to "詳細", [ :user, a ] %> |
-          <%= link_to "編集", [ :edit, :user, a ] %> |
-          <%= link_to "削除", [ :user, a ], method: :delete,
-            data: { confirm: "本当に削除しますか？" } %>
+          <%= link_to "詳細", [ :user, a ] %>
+          <% if @user == current_user %>
+            | <%= link_to "編集", [ :edit, :user, a ] %> |
+            <%= link_to "削除", [ :user, a ], method: :delete,
+              data: { confirm: "本当に削除しますか？" } %>
+          <% end %>
         </td>
       </tr>
     <% end %>
   </table>
 
-  <div class="links">
-    <%= link_to "新規登録", :new_user_activity %>
-  </div>
+  <% if @user == current_user %>
+    <div class="links">
+      <%= link_to "新規登録", :new_user_activity %>
+    </div>
+  <% end %>
 </div>

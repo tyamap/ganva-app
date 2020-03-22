@@ -5,6 +5,7 @@
   <table class='listing table table-hover'>
     <thead class='thead-dark'>
       <tr>
+        <th></th>
         <th>ID</th>
         <th>名前</th>
         <th>status</th>
@@ -13,7 +14,8 @@
     </thead>
     <% @users.each do |u| %>
       <tr>
-        <td><%= u.uid %></td>
+        <td><%= gravatar_for u, size: 50 %></td>
+        <td><%= "@#{u.uid}" %></td>
         <td><%= u.name %></td>
         <td><%= u.status %></td>
         <td class='actions'>

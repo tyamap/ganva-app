@@ -27,7 +27,7 @@
         <td><%= a.commit_record ? 'あり' : 'なし' %></td>
         <td><%= a.result_record ? 'あり' : 'なし' %></td>
         <td class="actions">
-          <%= link_to "詳細", [ :user, a ] %>
+          <%= link_to "詳細", [ :user, @user, a ] %>
           <% if @user == current_user %>
             | <%= link_to "編集", [ :edit, :user, a ] %> |
             <%= link_to "削除", [ :user, a ], method: :delete,

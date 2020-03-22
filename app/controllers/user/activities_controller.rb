@@ -1,7 +1,6 @@
 class User::ActivitiesController < User::Base
   def index
-    if params[:id]
-      @user = User.find(params[:id])
+      @user = User.find(params[:user_id])
       @activities = @user.name + 'さんのアクティビティ'
     else
       @user = current_user

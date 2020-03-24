@@ -22,7 +22,11 @@ date  = Date.new(2020, 3, 1)
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
       where: "ジム#{n%3+1}",
-      level: "#{n%2}",
+      cnt_vb: n*2+5-n,
+      cnt_v0: n*2+4-n,
+      cnt_v1: n*2+3-n,
+      cnt_v2: n*2+2-n,
+      cnt_v3: n*2+1-n,
     )
   when 1 then
     @activity.create_commit_record(
@@ -36,7 +40,11 @@ date  = Date.new(2020, 3, 1)
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
       where: "ジム#{n%3+1}",
-      level: "#{n%2}",
+      cnt_v4: n*2+5-n,
+      cnt_v5: n*2+4-n,
+      cnt_v6: n*2+3-n,
+      cnt_v7: n*2+2-n,
+      cnt_v8plus: n*2+1-n,
     )
   end
 end
@@ -60,7 +68,11 @@ ex_users.each do |u|
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
       where: "ジム#{n%3+1}",
-      level: "#{n%2}",
+      cnt_v4: n*2+5+n,
+      cnt_v5: n*2+4+n,
+      cnt_v6: n*2+3+n,
+      cnt_v7: n*2+2+n,
+      cnt_v8plus: n*2+1+n,
     )
   end
 end

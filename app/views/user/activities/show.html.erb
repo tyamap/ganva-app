@@ -59,10 +59,16 @@
       <th>場所</th>
       <td><%= @result.where %></td>
     </tr>
-    <tr>
-      <th>レベル</th>
-      <td><%= @result.level %></td>
-    </tr>
+    <tr><th>VB</th><td><%= @result.cnt_vb %></td></tr>
+    <tr><th>V0</th><td><%= @result.cnt_v0 %></td></tr>
+    <tr><th>V1</th><td><%= @result.cnt_v1 %></td></tr>
+    <tr><th>V2</th><td><%= @result.cnt_v2 %></td></tr>
+    <tr><th>V3</th><td><%= @result.cnt_v3 %></td></tr>
+    <tr><th>V4</th><td><%= @result.cnt_v4 %></td></tr>
+    <tr><th>V5</th><td><%= @result.cnt_v5 %></td></tr>
+    <tr><th>V6</th><td><%= @result.cnt_v6 %></td></tr>
+    <tr><th>V7</th><td><%= @result.cnt_v7 %></td></tr>
+    <tr><th>V8以上</th><td><%= @result.cnt_v8plus %></td></tr>
   </table>
 </div>
 <% end %>

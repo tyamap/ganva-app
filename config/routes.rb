@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resource :password, only: [ :show, :edit, :update ]
     resources :activities
     resources :achievements
+    resources :gyms, only: [ :index, :show ]
     resources :relationships,   only: [ :create, :destroy ]
 
     resources :users do

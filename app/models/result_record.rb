@@ -1,2 +1,3 @@
-class ResultRecord < Record
+class ResultRecord < ApplicationRecord
+  belongs_to :activity
 end

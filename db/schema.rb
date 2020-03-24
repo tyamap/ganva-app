@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_120229) do
+ActiveRecord::Schema.define(version: 2020_03_24_124158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,17 +26,15 @@ ActiveRecord::Schema.define(version: 2020_03_18_120229) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
-  create_table "records", force: :cascade do |t|
+  create_table "commit_records", force: :cascade do |t|
     t.bigint "activity_id", null: false
-    t.string "type", null: false
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.string "where", null: false
     t.string "level", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_records_on_activity_id"
-    t.index ["type", "activity_id"], name: "index_records_on_type_and_activity_id"
+    t.index ["activity_id"], name: "index_commit_records_on_activity_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -47,6 +45,26 @@ ActiveRecord::Schema.define(version: 2020_03_18_120229) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "result_records", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.string "start_time", null: false
+    t.string "end_time", null: false
+    t.string "where", null: false
+    t.integer "cnt_vb", default: 0, null: false
+    t.integer "cnt_v0", default: 0, null: false
+    t.integer "cnt_v1", default: 0, null: false
+    t.integer "cnt_v2", default: 0, null: false
+    t.integer "cnt_v3", default: 0, null: false
+    t.integer "cnt_v4", default: 0, null: false
+    t.integer "cnt_v5", default: 0, null: false
+    t.integer "cnt_v6", default: 0, null: false
+    t.integer "cnt_v7", default: 0, null: false
+    t.integer "cnt_v8plus", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activity_id"], name: "index_result_records_on_activity_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,5 +84,4 @@ ActiveRecord::Schema.define(version: 2020_03_18_120229) do
   end
 
   add_foreign_key "activities", "users"
-  add_foreign_key "records", "activities"
 end

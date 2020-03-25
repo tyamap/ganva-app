@@ -39,9 +39,11 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
 
   create_table "gyms", force: :cascade do |t|
     t.string "name", null: false
+    t.string "postal_code", null: false
     t.string "prefecture", null: false
     t.string "city", null: false
-    t.string "address", null: false
+    t.string "address1", null: false
+    t.string "address2", null: false
     t.text "introduction", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false

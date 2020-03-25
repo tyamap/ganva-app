@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_24_133759) do
+ActiveRecord::Schema.define(version: 2020_03_25_122539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,23 @@ ActiveRecord::Schema.define(version: 2020_03_24_133759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "level_counts", force: :cascade do |t|
+    t.bigint "result_record_id", null: false
+    t.integer "level0", default: 0, null: false
+    t.integer "level1", default: 0, null: false
+    t.integer "level2", default: 0, null: false
+    t.integer "level3", default: 0, null: false
+    t.integer "level4", default: 0, null: false
+    t.integer "level5", default: 0, null: false
+    t.integer "level6", default: 0, null: false
+    t.integer "level7", default: 0, null: false
+    t.integer "level8", default: 0, null: false
+    t.integer "level9", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["result_record_id"], name: "index_level_counts_on_result_record_id"
+  end
+
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
@@ -63,16 +80,6 @@ ActiveRecord::Schema.define(version: 2020_03_24_133759) do
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.string "where", null: false
-    t.integer "cnt_vb", default: 0, null: false
-    t.integer "cnt_v0", default: 0, null: false
-    t.integer "cnt_v1", default: 0, null: false
-    t.integer "cnt_v2", default: 0, null: false
-    t.integer "cnt_v3", default: 0, null: false
-    t.integer "cnt_v4", default: 0, null: false
-    t.integer "cnt_v5", default: 0, null: false
-    t.integer "cnt_v6", default: 0, null: false
-    t.integer "cnt_v7", default: 0, null: false
-    t.integer "cnt_v8plus", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["activity_id"], name: "index_result_records_on_activity_id"

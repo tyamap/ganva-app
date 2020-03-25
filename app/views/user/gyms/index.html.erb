@@ -1,2 +1,25 @@
 <% @title = "ジム一覧" %>
 <h1><%= @title %></h1>
+
+<div class='table-wrapper'>
+  <table class='listing table table-hover'>
+    <thead class='thead-dark'>
+      <tr>
+        <th>ジム名</th>
+        <th>場所</th>
+        <th>説明</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% @gyms.each do |g| %>
+      <tr>
+        <td><%= g.name %></td>
+        <td><%= g.prefecture + g.city + g.address %></td>
+        <td><%= g.introduction %></td>
+        <td class='actions'>
+          <%= link_to '詳細', user_gyms_path + "/#{g.id}"%>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

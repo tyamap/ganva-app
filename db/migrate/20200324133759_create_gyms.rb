@@ -5,6 +5,7 @@ class CreateGyms < ActiveRecord::Migration[6.0]
       t.string :prefecture, null: false
       t.string :city, null: false
       t.string :address, null: false
+      t.text   :introduction, null: false
       t.float  :latitude, null: false   # 緯度
       t.float  :longitude, null: false  # 経度
 

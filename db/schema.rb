@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_122539) do
+ActiveRecord::Schema.define(version: 2020_03_25_130600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_122539) do
     t.string "prefecture", null: false
     t.string "city", null: false
     t.string "address", null: false
+    t.text "introduction", null: false
     t.float "latitude", null: false
     t.float "longitude", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -63,6 +64,23 @@ ActiveRecord::Schema.define(version: 2020_03_25_122539) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["result_record_id"], name: "index_level_counts_on_result_record_id"
+  end
+
+  create_table "level_names", force: :cascade do |t|
+    t.bigint "gym_id", null: false
+    t.string "level0", default: "レベル1"
+    t.string "level1", default: "レベル2"
+    t.string "level2", default: "レベル3"
+    t.string "level3", default: "レベル4"
+    t.string "level4", default: "レベル5"
+    t.string "level5", default: "レベル6"
+    t.string "level6", default: "レベル7"
+    t.string "level7", default: "レベル8"
+    t.string "level8", default: "レベル9"
+    t.string "level9", default: "レベル10"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gym_id"], name: "index_level_names_on_gym_id"
   end
 
   create_table "relationships", force: :cascade do |t|

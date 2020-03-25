@@ -1,4 +1,4 @@
-table_name = %w(users relationships activities)
+table_name = %w(gyms users relationships activities)
 
 table_name.each do |table_name|
   path = Rails.root.join('db', 'seeds', Rails.env, "#{table_name}.rb")

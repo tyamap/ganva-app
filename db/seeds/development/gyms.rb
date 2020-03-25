@@ -1,8 +1,8 @@
 @gym = Gym.create!(
   name:         "GANVAジム中目黒",
-  prefecture:   "東京",
+  prefecture:   "東京都",
   city:         "目黒区",
-  address:      "中目黒０−０−０",
+  address:      "中目黒0-0-0",
   introduction: "【未経験歓迎】中目黒にあるかもしれないアットホームなボルダリングジムです。",
   latitude:     35.6441631,
   longitude:    139.6988444,
@@ -25,7 +25,7 @@ names = %w{ G A N V A }
 5.times do |n|
   @gym = Gym.create!(
     name:          names[n - 1] + 'ジム',
-    prefecture:    "東京",
+    prefecture:    "東京都",
     city:          "目黒区",
     address:       "中目黒#{n}0-0-0",
     introduction:  "テスト用のジムです。",
@@ -42,6 +42,6 @@ names = %w{ G A N V A }
     level6: "V#{n}-6",
     level7: "V#{n}-7",
     level8: "V#{n}-8",
-    level9: null,
+    level9: nil,
   )
 end

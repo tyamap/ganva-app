@@ -14,7 +14,9 @@
     <% @gyms.each do |g| %>
       <tr>
         <td><%= g.name %></td>
-        <td><%= g.prefecture + g.city + g.address %></td>
+        <td><%= '〒' + g.postal_code[0..2] + '-' + g.postal_code[3..6] %><br/>
+            <%= g.prefecture + g.city %><br/>
+            <%= g.address1 + ' ' + g.address2  %></td>
         <td><%= g.introduction %></td>
         <td class='actions'>
           <%= link_to '詳細', user_gyms_path + "/#{g.id}"%>

@@ -1,9 +1,11 @@
 @gym = Gym.create!(
   name:         "GANVAジム中目黒",
+  postal_code:  "153-0051",
   prefecture:   "東京都",
   city:         "目黒区",
-  address:      "中目黒0-0-0",
-  introduction: "【未経験歓迎】中目黒にあるかもしれないアットホームなボルダリングジムです。",
+  address1:     "上中目黒3-4-1",
+  address2:     "中目黒駅5F",
+  introduction: "【未経験歓迎】中目黒駅にあるかもしれないアットホームなボルダリングジムです。",
   latitude:     35.6441631,
   longitude:    139.6988444,
 )
@@ -25,9 +27,11 @@ names = %w{ G A N V A }
 5.times do |n|
   @gym = Gym.create!(
     name:          names[n - 1] + 'ジム',
+    postal_code:   sprintf("%07d", rand(10000000)),
     prefecture:    "東京都",
     city:          "目黒区",
-    address:       "中目黒#{n}0-0-0",
+    address1:      "中目黒#{n}0-0-0",
+    address2:      "○ビル地下#{n}階",
     introduction:  "テスト用のジムです。",
     latitude:      35.6 + (n * 0.01),
     longitude:     139.6 + (n * 0.01),

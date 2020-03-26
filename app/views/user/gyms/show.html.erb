@@ -1,2 +1,24 @@
 <% @title = "ジム詳細" %>
 <h1><%= @title %></h1>
+
+
+<div class='table-wrapper'>
+  <table class='listing table table-hover'>
+    <tr>
+      <th>ジム名</th>
+      <td><%= @gym.name %></td>
+    </tr>
+    <tr>
+      <th>場所</th>
+      <td>
+        <%= '〒' + @gym.postal_code[0..2] + '-' + @gym.postal_code[3..6] %><br/>
+        <%= @gym.prefecture + @gym.city %><br/>
+        <%= @gym.address1 + ' ' + @gym.address2  %>
+      </td>
+    </tr>
+    <tr>
+      <th>紹介</th>
+      <td><%= @gym.introduction %></td>
+    </tr>
+  </table>
+</div>

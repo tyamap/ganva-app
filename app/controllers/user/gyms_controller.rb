@@ -5,5 +5,7 @@ class User::GymsController < User::Base
     @gyms = Gym.all
   end
 
-  def show; end
+  def show
+    @gym = Gym.find(params[:id])
+  end
 end

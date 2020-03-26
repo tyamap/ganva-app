@@ -4,7 +4,7 @@ class CreateCommitRecords < ActiveRecord::Migration[6.0]
       t.references  :activity, null: false
       t.string      :start_time, null: false
       t.string      :end_time, null: false
-      t.string      :where, null: false
+      t.references  :gym
       t.string      :level, null: false
 
       t.timestamps

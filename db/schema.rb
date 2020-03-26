@@ -30,11 +30,12 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.bigint "activity_id", null: false
     t.string "start_time", null: false
     t.string "end_time", null: false
-    t.string "where", null: false
+    t.bigint "gym_id"
     t.string "level", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["activity_id"], name: "index_commit_records_on_activity_id"
+    t.index ["gym_id"], name: "index_commit_records_on_gym_id"
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -99,10 +100,11 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.bigint "activity_id", null: false
     t.string "start_time", null: false
     t.string "end_time", null: false
-    t.string "where", null: false
+    t.bigint "gym_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["activity_id"], name: "index_result_records_on_activity_id"
+    t.index ["gym_id"], name: "index_result_records_on_gym_id"
   end
 
   create_table "users", force: :cascade do |t|

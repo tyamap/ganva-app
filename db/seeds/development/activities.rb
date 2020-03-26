@@ -15,13 +15,13 @@ date  = Date.new(2020, 3, 1)
     @activity.create_commit_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
       level: "#{n%2}",
     )
     @result = @activity.create_result_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
     )
     @result.create_level_count(
       level0: n*2+5-n,
@@ -34,14 +34,14 @@ date  = Date.new(2020, 3, 1)
     @activity.create_commit_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
       level: "#{n%2}",
     )
   when 2 then
     @result = @activity.create_result_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
     )
     @result.create_level_count(
       level5: n*2+5-n,
@@ -65,13 +65,13 @@ ex_users.each do |u|
     @activity.create_commit_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
       level: "#{n%2}",
     )
     @result = @activity.create_result_record(
       start_time: @date.to_time + (60*60*12),
       end_time: @date.to_time + (60*60*14),
-      where: "ジム#{n%3+1}",
+      gym_id: n%3+1,
     )
     @result.create_level_count(
       level4: n*2+5+n,

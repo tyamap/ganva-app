@@ -1,7 +1,7 @@
 class Gym < ApplicationRecord
   include StringNormalizer
 
-  has_one :level_name, dependent: :destroy, autosave: true
+  has_one  :level_name, dependent: :destroy, autosave: true
 
   before_validation do
     self.postal_code = normalize_as_postal_code(postal_code)

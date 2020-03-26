@@ -10,9 +10,11 @@ class User::ActivitiesController < User::Base
   end
 
   def show
-    @activity = Activity.find(params[:id])
-    @commit = @activity.commit_record
-    @result = @activity.result_record
+    @activity   = Activity.find(params[:id])
+    @commit     = @activity.commit_record
+    @commit_gym = Gym.find(@commit.gym_id)
+    @result     = @activity.result_record
+    @result_gym = Gym.find(@result.gym_id)
   end
 
   def new; end

@@ -12,7 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-/nginx/log/*
+nginx/log/*
 
 # Ignore uploaded files in development.
 /storage/*

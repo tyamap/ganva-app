@@ -20,10 +20,8 @@ class User::UsersController < User::Base
       session[:last_access_time] = Time.current
       redirect_to :user_home
     else
-      redirect_back fallback_location: :user_users_new, flash: {
-        user: user,
-        error_messages: user.errors.full_messages
-      }
+      flash.alert = user.errors.full_messages.join('　')
+      redirect_back fallback_location: :user_users_new, flash: {user: user}
     end
   end
 

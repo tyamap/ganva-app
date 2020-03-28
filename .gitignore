@@ -9,10 +9,10 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*
-/nginx/log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/nginx/log/*
 
 # Ignore uploaded files in development.
 /storage/*

@@ -13,7 +13,6 @@ COPY Gemfile.lock /ganva-app/Gemfile.lock
 RUN bundle install
 COPY . /ganva-app
 RUN mkdir -p tmp/sockets
-
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

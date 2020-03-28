@@ -14,18 +14,10 @@ RUN bundle install
 COPY . /ganva-app
 RUN mkdir -p tmp/sockets
 
-# COPY entrypoint.sh /usr/bin/
-# RUN chmod +x /usr/bin/entrypoint.sh
-# ENTRYPOINT ["entrypoint.sh"]
-# EXPOSE 3000
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
 
-# # Start the main process.
-# CMD ["rails", "server", "-b", "0.0.0.0"]
-
-# Expose volumes to frontend
-VOLUME /app/public
-VOLUME /app/tmp
-
-# Start Server
-# TODO: environment
-CMD bundle exec puma
+# Start the main process.
+CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -47,10 +47,8 @@
         </div>
       </li>
       <% end  %>
-      <li class='nav-item'>
-        <%= content_tag(:span, flash.notice, class: 'notice') if flash.notice %>
-        <%= content_tag(:span, flash.alert, class: 'alert') if flash.alert %>
-      </li>
     </ul>
   </div>
 </nav>
+<%= content_tag(:div, flash.notice, class: 'alert alert-info', role: 'alert') if flash.notice %>
+<%= content_tag(:div, flash.alert, class: 'alert alert-danger', role: 'alert') if flash.alert %>

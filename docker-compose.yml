@@ -14,16 +14,25 @@ services:
       - "3000:3000"
     depends_on:
       - db
-  server:
-    build:
-      context: containers/nginx
+  # server:
+  #   build:
+  #     context: containers/nginx
+  #   volumes:
+  #     - ./nginx/log:/var/log/nginx
+  #     - public-data:/ganva-app/public
+  #   depends_on:
+  #     - web
+  #   ports:
+  #     - 80:80
+  nginx:
+    build: containers/nginx
+    ports:
+      - "80:80"
     volumes:
       - ./nginx/log:/var/log/nginx
       - public-data:/ganva-app/public
     depends_on:
       - web
-    ports:
-      - 80:80
 volumes:
   public-data:
   postgresql-data:

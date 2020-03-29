@@ -2,7 +2,7 @@
   p = UserFormPresenter.new(f, self)
   m << p.notes
   p.with_options(required: true) do |q|
-    m << p.text_field_block(:uid, "ID")
-    m << p.text_field_block(:email, "メールアドレス")
+    m << q.text_field_block(:uid, "ID")
+    m << q.text_field_block(:email, "メールアドレス")
   end
 end %>

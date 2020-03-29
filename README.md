@@ -1,12 +1,20 @@
-# GANVA -alpha
+# GANVA α
 ポートフォリオとして作成中の、ボルダリングコミュニティ支援アプリです。  
 日々のボルダリング活動の記録を投稿でき、他の人の活動を応援することができます。  
 自分と同じレベルの人や、同じジムに通う人を見つけて、応援し合う仲間に出会えます。
 
+## URL
+http://ganva-app.com ※未デプロイ
+
 ## 使用技術
 - Ruby 2.6.4, Rails 6.0.2
-- Docker,Docker-compose
+- Docker, docker-compose
 - PostgreSQL
+- Nginx
+- AWS
+  - EC2
+  - RDS
+  - ALB
 - ...適宜追加
 
 ## 機能一覧

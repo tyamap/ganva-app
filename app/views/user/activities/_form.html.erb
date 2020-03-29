@@ -1,0 +1,9 @@
+<%= markup do |m|
+  p = UserFormPresenter.new(f, self)
+  m << p.notes
+  p.with_options(required: true) do |q|
+    m << q.date_field_block(:date, "日付")
+    m << q.text_field_block(:title, "タイトル")
+    m << q.textarea_field_block(:description, "紹介", required: false)
+  end
+end %>

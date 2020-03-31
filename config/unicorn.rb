@@ -1,31 +1,36 @@
-rails_root = File.expand_path('../../', __FILE__)
-ENV['BUNDLE_GEMFILE'] = rails_root + "/Gemfile"
+# set lets
+$worker  = 2
+$timeout = 30
+$app_dir = File.expand_path('../../', __FILE__)
+$listen  = File.expand_path 'var/run/unicorn.sock', $app_dir
+$pid     = File.expand_path 'var/run/unicorn.pid', $app_dir
+$std_log = File.expand_path 'log/unicorn.log', $app_dir
 
-worker_processes 2
-working_directory rails_root
+# set config
+worker_processes  $worker
+working_directory $app_dir
+stderr_path $std_log
+stdout_path $std_log
+timeout $timeout
+listen  $listen
+pid $pid
 
-timeout 30
+# loading booster
+preload_app true
 
-listen "#{rails_root}/tmp/sockets/unicorn.sock"
-pid "#{rails_root}/tmp/pids/unicorn.pid"
-
-stderr_path "#{rails_root}/log/unicorn_error.log"
-stdout_path "#{rails_root}/log/unicorn.log"
-
+# before starting processes
 before_fork do |server, worker|
-  defined?(ActiveRecord::Base) and
-      ActiveRecord::Base.connection.disconnect!
-
+  defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
   old_pid = "#{server.config[:pid]}.oldbin"
   if old_pid != server.pid
     begin
-      sig = (worker.nr + 1) >= server.worker_processes ? :QUIT : :TTOU
-      Process.kill(sig, File.read(old_pid).to_i)
+      Process.kill "QUIT", File.read(old_pid).to_i
     rescue Errno::ENOENT, Errno::ESRCH
     end
   end
 end
 
+# after finishing processes
 after_fork do |server, worker|
   defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
 end

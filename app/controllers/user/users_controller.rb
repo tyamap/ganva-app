@@ -21,7 +21,7 @@ class User::UsersController < User::Base
       redirect_to :user_home
     else
       flash.alert = user.errors.full_messages.join('　')
-      redirect_back fallback_location: :user_users_new, flash: {user: user}
+      redirect_back fallback_location: :user_users_new, flash: { user: user }
     end
   end
 

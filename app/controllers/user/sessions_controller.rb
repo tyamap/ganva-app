@@ -20,7 +20,7 @@ class User::SessionsController < User::Base
       redirect_to :user_home
     else
       flash.alert = 'メールアドレスまたはパスワードが正しくありません。'
-      redirect_back fallback_location: :user_login, flash: {user: user}
+      redirect_back fallback_location: :user_login, flash: { user: user }
     end
   end
 

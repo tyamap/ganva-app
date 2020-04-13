@@ -17,8 +17,8 @@ class User::ActivityForm
 
   def assign_attributes(params = {})
     @params = params
-    #self.inputs_commit_record = params[:inputs_commit_record] == "1"
-    #self.inputs_result_record = params[:inputs_result_record] == "1"
+    # self.inputs_commit_record = params[:inputs_commit_record] == "1"
+    # self.inputs_result_record = params[:inputs_result_record] == "1"
 
     activity.assign_attributes(activity_params)
 
@@ -39,8 +39,8 @@ class User::ActivityForm
 
   def activity_params
     @params.require(:activity).permit(
-      :date, :title, :description,
-    ).merge(user_id: self.user_id)
+      :date, :title, :description
+    ).merge(user_id: user_id)
   end
 
   # def commit_record_params

@@ -1,10 +1,10 @@
 class User::ActivitiesController < User::Base
   def index
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
+    @user = if params[:user_id]
+              User.find(params[:user_id])
+            else
+              current_user
+            end
     @activities = @user.activities
     @activities = @activities.includes(:commit_record)
     @activities = @activities.includes(:result_record)
@@ -18,7 +18,7 @@ class User::ActivitiesController < User::Base
     @result_gym = Gym.find(@result.gym_id) unless @result.nil?
   end
 
-  def new 
+  def new
     @activity = Activity.new(flash[:activity])
   end
 
@@ -26,11 +26,11 @@ class User::ActivitiesController < User::Base
     @activity_form = User::ActivityForm.new(current_user)
     @activity_form.assign_attributes(params)
     if @activity_form.save!
-      flash.notice = "アクティビティを追加しました。"
-      redirect_to action: "index"
+      flash.notice = 'アクティビティを追加しました。'
+      redirect_to action: 'index'
     else
-      flash.alert = "入力に誤りがあります。"
-      render action: "new"
+      flash.alert = '入力に誤りがあります。'
+      render action: 'new'
     end
   end
 

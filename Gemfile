@@ -18,8 +18,8 @@ gem 'date_validator'
 gem 'kaminari'
 gem 'nokogiri'
 gem 'rails-i18n'
-gem 'valid_email2'
 gem 'unicorn'
+gem 'valid_email2'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

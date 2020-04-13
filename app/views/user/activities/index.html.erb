@@ -1,8 +1,6 @@
 <% @title = 'アクティビティ一覧'%>
 <h1><%= @title %></h1>
 
-<p><%= @activities %></p>
-
 <div class="table-wrapper">
   <% if @user == current_user %>
     <div class="links">
@@ -20,7 +18,7 @@
         <th>アクション</th>
       </tr>
     </thead>
-    <% @user.activities.each do |a| %>
+    <% @activities.each do |a| %>
       <tr>
         <td><%= a.date %></td>
         <td><%= a.title %></td>

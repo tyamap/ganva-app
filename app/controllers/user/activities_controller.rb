@@ -2,11 +2,12 @@ class User::ActivitiesController < User::Base
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
-      @activities = @user.name + 'さんのアクティビティ'
     else
       @user = current_user
-      @activities = 'あなたのアクティビティ'
     end
+    @activities = @user.activities
+    @activities = @activities.includes(:commit_record)
+    @activities = @activities.includes(:result_record)
   end
 
   def show

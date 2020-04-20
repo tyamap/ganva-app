@@ -20,7 +20,7 @@
 
 <div class="links">
   <%= link_to "編集", :edit_user_activity %> | 
-  <%= link_to "削除", :edit_user_password %>
+  <%= link_to "削除", [ :user, @activity ], method: :delete, data: { confirm: "本当に削除しますか？" }%>
 </div>
 
 <% if @commit %>

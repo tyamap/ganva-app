@@ -6,8 +6,7 @@ class User::ActivitiesController < User::Base
               current_user
             end
     @activities = @user.activities
-    @activities = @activities.includes(:commit_record)
-    @activities = @activities.includes(:result_record)
+    @activities = @activities.includes(:commit_record, :result_record)
   end
 
   def show

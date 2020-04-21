@@ -6,8 +6,8 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
-    command: bash -c "bundle exec unicorn -c config/unicorn.rb -p 3000 -E production"
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "bundle exec unicorn -c config/unicorn.rb -p 3000"
+    # command: bash -c "bundle exec unicorn -c config/unicorn.rb -p 3000 -E production"
     volumes:
       - .:/ganva-app
       - public-data:/ganva-app/public

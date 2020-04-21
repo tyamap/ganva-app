@@ -4,13 +4,14 @@
 自分と同じレベルの人や、同じジムに通う人を見つけて、応援し合う仲間に出会えます。
 
 ## URL
-http://ganva-app.com ※未デプロイ
+http://ganva-app.com ※Basic認証あり
 
 ## 使用技術
 - Ruby 2.6.4, Rails 6.0.2
 - Docker, docker-compose
 - PostgreSQL
 - Nginx
+- unicorn
 - AWS
   - EC2
   - RDS

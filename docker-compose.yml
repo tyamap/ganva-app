@@ -7,10 +7,11 @@ services:
   web:
     build: .
     command: bash -c "bundle exec unicorn -c config/unicorn.rb -p 3000"
-    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    # command: bash -c "bundle exec unicorn -c config/unicorn.rb -p 3000 -E production"
     volumes:
       - .:/ganva-app
-      # - public-data:/ganva-app/public # TODO:
+      - public-data:/ganva-app/public
+      - var-data:/ganva-app/var
     ports:
       - "3000:3000"
     depends_on:
@@ -21,11 +22,13 @@ services:
     volumes:
       - ./nginx/log:/var/log/nginx
       - public-data:/ganva-app/public
+      - var-data:/ganva-app/var
     depends_on:
       - web
     ports:
       - 80:80
 volumes:
   public-data:
+  var-data:
   postgresql-data:
     driver: local

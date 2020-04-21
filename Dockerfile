@@ -19,4 +19,4 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Start the main process.
-CMD ["unicorn -c config/unicorn.rb -p 3000 -E production"]
+# CMD ["bundle exec unicorn -c config/unicorn.rb -p 3000 -E production"]

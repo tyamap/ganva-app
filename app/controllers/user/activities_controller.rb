@@ -38,7 +38,7 @@ class User::ActivitiesController < User::Base
   def destroy
     activity_form = Activity.find(params[:id])
     activity_form.destroy!
-    flash.notice = "アクティビティを削除しました。"
+    flash.notice = 'アクティビティを削除しました。'
     redirect_to :user_activities
   end
 end

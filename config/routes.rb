@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resource :profile, only: [ :show, :edit, :update ]
     resource :password, only: [ :show, :edit, :update ]
     resources :activities
-    resources :achievements
+    resources :achievements, only: [ :index, :show ]
     resources :gyms, only: [ :index, :show ]
     resources :relationships,   only: [ :create, :destroy ]
 

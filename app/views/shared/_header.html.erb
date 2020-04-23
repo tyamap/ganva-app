@@ -50,5 +50,7 @@
     </ul>
   </div>
 </nav>
-<%= content_tag(:div, flash.notice, class: 'alert alert-info fixed-top', role: 'alert') if flash.notice %>
-<%= content_tag(:div, flash.alert, class: 'alert alert-danger fixed-top', role: 'alert') if flash.alert %>
+<div id='alert-area'>
+  <%= content_tag(:div, flash.notice, class: 'alert alert-info fixed-top', role: 'alert') if flash.notice %>
+  <%= content_tag(:div, flash.alert, class: 'alert alert-danger fixed-top', role: 'alert') if flash.alert %>
+</div>

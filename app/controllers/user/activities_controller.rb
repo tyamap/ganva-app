@@ -15,6 +15,7 @@ class User::ActivitiesController < User::Base
 
   def new
     @activity = Activity.new(flash[:activity])
+    @gyms = Gym.all
   end
 
   def create

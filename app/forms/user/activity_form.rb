@@ -1,7 +1,7 @@
 class User::ActivityForm
   include ActiveModel::Model
 
-  attr_accessor :activity, :inputs_commit_record, :inputs_result_record, :user_id
+  attr_accessor :activity, :user_id
   delegate :persisted?, :save, :save!, to: :activity
 
   def initialize(user, activity = nil)
@@ -39,7 +39,7 @@ class User::ActivityForm
 
   def activity_params
     @params.require(:activity).permit(
-      :date, :title, :description
+      :date, :description, :start_time, :end_time, :gym_id
     ).merge(user_id: user_id)
   end
 

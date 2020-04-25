@@ -1,12 +1,8 @@
-<% @title = @activity.title %>
+<% @title = @activity.date %>
 <h1><%= @title %></h1>
 
 <div class="table-wrapper">
   <table class="attributes">
-    <tr>
-      <th>タイトル</th>
-      <td><%= @activity.title %></td>
-    </tr>
     <tr>
       <th>日付</th>
       <td><%= @activity.date %></td>
@@ -23,53 +19,42 @@
   <%= link_to "削除", [ :user, @activity ], method: :delete, data: { confirm: "本当に削除しますか？" }%>
 </div>
 
-<% if @commit %>
+<%
+  case @activity.status 
+    when 'ready','aborted','done' then @title = '宣言'
+    when 'recorded' then @title = '結果'
+  end
+%>
 <div class="table-wrapper">
   <table class="attributes">
     <thead class='thead-dark'>
-      <tr><th colspan='2'>宣言</th></tr>
+      <tr><th colspan='2'><%= @title %></th></tr>
     </thead>
     <tr>
       <th>時間</th>
-      <td><%= Time.parse(@commit.start_time).strftime("%X") %> 〜 <%= Time.parse(@commit.end_time).strftime("%X") %></td>
+      <td><%= Time.parse(@activity.start_time).strftime("%X") %> 〜 <%= Time.parse(@activity.end_time).strftime("%X") %></td>
     </tr>
     <tr>
       <th>場所</th>
-      <td><%= @commit_gym.name %></td>
+      <td><%= @gym.name %></td>
     </tr>
-    <tr>
-      <th>レベル</th>
-      <td><%= @commit.level %></td>
-    </tr>
+    <% if @activity.status == 'recorded' %>
+      <% @ln = @gym.level_name %>
+      <tr><th><%= @ln.level0 %></th><td><%= @activity.level_count.level0 %></td></tr>
+      <tr><th><%= @ln.level1 %></th><td><%= @activity.level_count.level1 %></td></tr>
+      <tr><th><%= @ln.level2 %></th><td><%= @activity.level_count.level2 %></td></tr>
+      <tr><th><%= @ln.level3 %></th><td><%= @activity.level_count.level3 %></td></tr>
+      <tr><th><%= @ln.level4 %></th><td><%= @activity.level_count.level4 %></td></tr>
+      <tr><th><%= @ln.level5 %></th><td><%= @activity.level_count.level5 %></td></tr>
+      <tr><th><%= @ln.level6 %></th><td><%= @activity.level_count.level6 %></td></tr>
+      <tr><th><%= @ln.level7 %></th><td><%= @activity.level_count.level7 %></td></tr>
+      <tr><th><%= @ln.level8 %></th><td><%= @activity.level_count.level8 %></td></tr>
+      <tr><th><%= @ln.level9 %></th><td><%= @activity.level_count.level9 %></td></tr>
+    <% else %>
+      <tr>
+        <th>レベル</th>
+        <td><%= @activity.level %></td>
+      </tr>
+    <% end %>
   </table>
 </div>
-<% end %>
-
-<% if @result %>
-<div class="table-wrapper">
-  <table class="attributes">
-    <thead class='thead-dark'>
-      <tr><th colspan='2'>結果</th></tr>
-    </thead>
-    <tr>
-      <th>時間</th>
-      <td><%= Time.parse(@result.start_time).strftime("%X") %> 〜 <%= Time.parse(@result.end_time).strftime("%X") %></td>
-    </tr>
-    <tr>
-      <th>場所</th>
-      <td><%= @result_gym.name %></td>
-    </tr>
-    <% @ln = @result_gym.level_name %>
-    <tr><th><%= @ln.level0 %></th><td><%= @result.level_count.level0 %></td></tr>
-    <tr><th><%= @ln.level1 %></th><td><%= @result.level_count.level1 %></td></tr>
-    <tr><th><%= @ln.level2 %></th><td><%= @result.level_count.level2 %></td></tr>
-    <tr><th><%= @ln.level3 %></th><td><%= @result.level_count.level3 %></td></tr>
-    <tr><th><%= @ln.level4 %></th><td><%= @result.level_count.level4 %></td></tr>
-    <tr><th><%= @ln.level5 %></th><td><%= @result.level_count.level5 %></td></tr>
-    <tr><th><%= @ln.level6 %></th><td><%= @result.level_count.level6 %></td></tr>
-    <tr><th><%= @ln.level7 %></th><td><%= @result.level_count.level7 %></td></tr>
-    <tr><th><%= @ln.level8 %></th><td><%= @result.level_count.level8 %></td></tr>
-    <tr><th><%= @ln.level9 %></th><td><%= @result.level_count.level9 %></td></tr>
-  </table>
-</div>
-<% end %>

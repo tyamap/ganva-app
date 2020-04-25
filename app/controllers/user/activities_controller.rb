@@ -6,15 +6,11 @@ class User::ActivitiesController < User::Base
               current_user
             end
     @activities = @user.activities
-    @activities = @activities.includes(:commit_record, :result_record)
   end
 
   def show
-    @activity   = Activity.find(params[:id])
-    @commit     = @activity.commit_record
-    @commit_gym = Gym.find(@commit.gym_id) unless @commit.nil?
-    @result     = @activity.result_record
-    @result_gym = Gym.find(@result.gym_id) unless @result.nil?
+    @activity = Activity.find(params[:id])
+    @gym = Gym.find(@activity.gym_id)
   end
 
   def new

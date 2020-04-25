@@ -1,3 +1,3 @@
 class LevelCount < ApplicationRecord
-  belongs_to :result_record
+  belongs_to :activity
 end

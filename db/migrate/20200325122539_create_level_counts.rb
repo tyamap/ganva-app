@@ -1,7 +1,7 @@
 class CreateLevelCounts < ActiveRecord::Migration[6.0]
   def change
     create_table :level_counts do |t|
-      t.references   :result_record, null: false
+      t.references   :activity, null: false
 
       t.integer      :level0, null: false, default: 0
       t.integer      :level1, null: false, default: 0

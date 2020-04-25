@@ -1,9 +1,13 @@
 class CreateActivities < ActiveRecord::Migration[6.0]
   def change
     create_table :activities do |t|
-      t.references  :user, null: false
-      t.string      :date, null: false
-      t.string      :title, null: false
+      t.references  :user,        null: false
+      t.string      :date,        null: false
+      t.string      :start_time,  null: false
+      t.string      :end_time,    null: false
+      t.references  :gym
+      t.string      :level
+      t.string      :status,      null: false, default: 'ready'
       t.text        :description, null: false, default: ''
 
       t.timestamps

@@ -18,24 +18,17 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
   create_table "activities", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "date", null: false
-    t.string "title", null: false
+    t.string "start_time", null: false
+    t.string "end_time", null: false
+    t.bigint "gym_id"
+    t.string "level"
+    t.string "status", default: "ready", null: false
     t.text "description", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["date", "user_id"], name: "index_activities_on_date_and_user_id"
+    t.index ["gym_id"], name: "index_activities_on_gym_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
-  end
-
-  create_table "commit_records", force: :cascade do |t|
-    t.bigint "activity_id", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
-    t.bigint "gym_id"
-    t.string "level", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_commit_records_on_activity_id"
-    t.index ["gym_id"], name: "index_commit_records_on_gym_id"
   end
 
   create_table "gyms", force: :cascade do |t|
@@ -53,7 +46,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
   end
 
   create_table "level_counts", force: :cascade do |t|
-    t.bigint "result_record_id", null: false
+    t.bigint "activity_id", null: false
     t.integer "level0", default: 0, null: false
     t.integer "level1", default: 0, null: false
     t.integer "level2", default: 0, null: false
@@ -66,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.integer "level9", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["result_record_id"], name: "index_level_counts_on_result_record_id"
+    t.index ["activity_id"], name: "index_level_counts_on_activity_id"
   end
 
   create_table "level_names", force: :cascade do |t|
@@ -94,17 +87,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
-  end
-
-  create_table "result_records", force: :cascade do |t|
-    t.bigint "activity_id", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
-    t.bigint "gym_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["activity_id"], name: "index_result_records_on_activity_id"
-    t.index ["gym_id"], name: "index_result_records_on_gym_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -12,18 +12,14 @@
     <thead class='thead-dark'>
       <tr>
         <th>日付</th>
-        <th>タイトル</th>
-        <th>宣言</th>
-        <th>結果</th>
-        <th>アクション</th>
+        <th>状態</th>
+        <th>操作</th>
       </tr>
     </thead>
     <% @activities.each do |a| %>
       <tr>
         <td><%= a.date %></td>
-        <td><%= a.title %></td>
-        <td><%= a.commit_record ? 'あり' : 'なし' %></td>
-        <td><%= a.result_record ? 'あり' : 'なし' %></td>
+        <td><%= a.status %></td>
         <td class="actions">
           <%= link_to "詳細", [ :user, @user, a ] %>
           <% if @user == current_user %>

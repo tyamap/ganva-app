@@ -1,0 +1,6 @@
+<%= markup do |m|
+  p = UserFormPresenter.new(f, self)
+  p.with_options(required: true) do |q|
+    m << q.drop_down_list_block(:level, 'レベル', [0,1,2,3,4])
+  end
+end %>

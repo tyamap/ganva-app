@@ -2,7 +2,7 @@ class FormPresenter
   include HtmlBuilder
 
   attr_reader :form_builder, :view_context
-  delegate :label, :text_field, :date_field, :password_field, :time_select, :collection_select,
+  delegate :label, :text_field, :date_field, :password_field, :time_select, :collection_select, :number_field,
            :check_box, :radio_button, :text_area, :select, :object, to: :form_builder
 
   def initialize(form_builder, view_context)
@@ -53,6 +53,14 @@ class FormPresenter
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
       m << date_field(name, options)
+      m << error_messages_for(name)
+    end
+  end
+
+  def number_field_block(name, label_text, options = {})
+    markup(:div, class: 'input-block') do |m|
+      m << decorated_label(name, label_text, options)
+      m << number_field(name, options)
       m << error_messages_for(name)
     end
   end

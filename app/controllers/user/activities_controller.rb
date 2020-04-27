@@ -15,6 +15,7 @@ class User::ActivitiesController < User::Base
 
   def new_commit
     @title = '宣言の追加'
+    @is_commit = true
     @activity = Activity.new(flash[:activity])
     @gyms = Gym.all
     render action: 'new'
@@ -22,6 +23,7 @@ class User::ActivitiesController < User::Base
 
   def new_result
     @title = '結果の追加'
+    @is_commit = false
     @activity = Activity.new(flash[:activity])
     @gyms = Gym.all
     render action: 'new'

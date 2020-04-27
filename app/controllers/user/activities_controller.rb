@@ -13,9 +13,18 @@ class User::ActivitiesController < User::Base
     @gym = Gym.find(@activity.gym_id)
   end
 
-  def new
+  def new_commit
+    @title = '宣言の追加'
     @activity = Activity.new(flash[:activity])
     @gyms = Gym.all
+    render action: 'new'
+  end
+
+  def new_result
+    @title = '結果の追加'
+    @activity = Activity.new(flash[:activity])
+    @gyms = Gym.all
+    render action: 'new'
   end
 
   def create

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
     resource :account, only: [ :show, :edit, :update ]
     resource :profile, only: [ :show, :edit, :update ]
     resource :password, only: [ :show, :edit, :update ]
-    resources :activities
+    resources :activities, except: [ :new ] do
+      collection do 
+        get 'commit/new', action: 'new_commit'
+        get 'result/new', action: 'new_result'
+      end
+    end
     resources :achievements, only: [ :index, :show ]
     resources :gyms, only: [ :index, :show ]
     resources :relationships,   only: [ :create, :destroy ]

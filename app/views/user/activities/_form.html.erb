@@ -9,3 +9,4 @@
     m << q.textarea_field_block(:description, '紹介', required: false)
   end
 end %>
+<%= render @is_commit ? 'commit_form' : 'result_form', f: f %>

@@ -25,14 +25,22 @@ class User::ActivitiesController < User::Base
     @title = '結果の追加'
     @is_commit = false
     @activity = Activity.new(flash[:activity])
+    @activity.build_level_count
     @gyms = Gym.all
     render action: 'new'
   end
 
   def create
-    @activity_form = User::ActivityForm.new(current_user)
-    @activity_form.assign_attributes(params)
-    if @activity_form.save!
+    activity = current_user.activities.new(activity_params)
+    activity.build_level_count
+    if params[:activity][:level_count]
+      activity.level_count.assign_attributes(level_count_params)
+      activity.status = 'recorded'
+    else
+      activity.level_count.mark_for_destruction
+    end
+
+    if activity.save!
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
@@ -48,5 +56,20 @@ class User::ActivitiesController < User::Base
     activity_form.destroy!
     flash.notice = 'アクティビティを削除しました。'
     redirect_to :user_activities
+  end
+
+  private
+
+  def activity_params
+    params.require(:activity).permit(
+      :date, :start_time, :end_time, :gym_id, :level, :description
+    )
+  end
+
+  def level_count_params
+    params.require(:activity).require(:level_count).permit(
+      :level0, :level1, :level2, :level3, :level4,
+      :level5, :level6, :level7, :level8, :level9
+    )
   end
 end

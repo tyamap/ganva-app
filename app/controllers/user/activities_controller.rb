@@ -18,6 +18,7 @@ class User::ActivitiesController < User::Base
     @is_commit = true
     @activity = Activity.new(flash[:activity])
     @gyms = Gym.all
+    @mygym_id = current_user.gym ? current_user.gym.id : nil
     render action: 'new'
   end
 
@@ -27,6 +28,7 @@ class User::ActivitiesController < User::Base
     @activity = Activity.new(flash[:activity])
     @activity.build_level_count
     @gyms = Gym.all
+    @mygym_id = current_user.gym ? current_user.gym.id : nil
     render action: 'new'
   end
 

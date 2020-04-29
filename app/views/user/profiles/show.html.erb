@@ -15,23 +15,23 @@
     </tr>
     <tr>
       <th>経歴</th>
-      <td><%= @user.experience %></td>
+      <td><%= @user.experience.presence || '未設定' %></td>
     </tr>
     <tr>
       <th>頻度</th>
-      <td><%= @user.frequency %></td>
+      <td><%= @user.frequency.presence || '未設定' %></td>
     </tr>
     <tr>
       <th>レベル</th>
-      <td><%= @user.level %></td>
+      <td><%= @user.level.presence || '未設定' %></td>
     </tr>
     <tr>
       <th>マイジム</th>
-      <td><%= @user.gym ? @user.gym.name : '未設定' %></td>
+      <td><%= @user.gym&.name.presence || '未設定' %></td>
     </tr>
     <tr>
       <th>ひとこと</th>
-      <td><%= @user.introduction %></td>
+      <td><%= @user.introduction.presence || '未設定' %></td>
     </tr>
   </table>
 </div>

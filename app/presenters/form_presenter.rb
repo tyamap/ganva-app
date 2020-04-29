@@ -81,10 +81,10 @@ class FormPresenter
     end
   end
 
-  def drop_down_collection_block(attr_name, label_text, collection, value, view, selected, options = {})
+  def drop_down_collection_block(attr_name, label_text, collection, value, view, selected = nil , blank = '- 未選択 -', options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(attr_name, label_text, options)
-      m << collection_select(attr_name, collection, value, view, { prompt: true, selected: selected }, options)
+      m << collection_select(attr_name, collection, value, view, { selected: selected, include_blank: blank }, options)
       m << error_messages_for(attr_name)
     end
   end

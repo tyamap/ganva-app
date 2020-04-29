@@ -7,7 +7,8 @@ User.create!(
   frequency: '1',
   level: '3', 
   status: 'stable', 
-  introduction: 'どーも。'
+  introduction: 'どーも。',
+  gym_id: 1,
 ) 
 
 names_1 = %w{

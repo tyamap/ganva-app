@@ -13,5 +13,6 @@ class CreateGyms < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_foreign_key :users, :gyms
   end
 end

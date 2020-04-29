@@ -6,6 +6,7 @@ class User::ProfilesController < User::Base
   def edit
     @user = current_user
     @gyms = Gym.all
+    @mygym_id = @user.gym&.id
   end
 
   def update

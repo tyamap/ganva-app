@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.index ["gym_id"], name: "index_users_on_gym_id"
   end
 
+  add_foreign_key "activities", "gyms"
   add_foreign_key "activities", "users"
   add_foreign_key "users", "gyms"
 end

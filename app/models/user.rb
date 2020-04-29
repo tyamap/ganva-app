@@ -20,6 +20,9 @@ class User < ApplicationRecord
   # activity
   has_many :activities, dependent: :destroy, autosave: true
 
+  # mygym
+  belongs_to :gym, optional: true
+
   # ユーザーをフォローする
   def follow(other_user)
     following << other_user

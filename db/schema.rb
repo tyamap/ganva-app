@@ -93,17 +93,21 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "uid", null: false
-    t.string "name", default: "", null: false
-    t.string "experience", default: "未設定", null: false
-    t.string "frequency", default: "未設定", null: false
-    t.string "level", default: "未設定", null: false
-    t.string "introduction", default: "未設定", null: false
-    t.string "status", default: "未設定", null: false
+    t.string "name", null: false
+    t.bigint "gym_id"
+    t.string "experience"
+    t.string "frequency"
+    t.string "level"
+    t.string "introduction"
+    t.string "status", default: "stable", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "lower((email)::text)", name: "index_users_on_LOWER_email", unique: true
     t.index "lower((uid)::text)", name: "index_users_on_LOWER_uid", unique: true
+    t.index ["gym_id"], name: "index_users_on_gym_id"
   end
 
+  add_foreign_key "activities", "gyms"
   add_foreign_key "activities", "users"
+  add_foreign_key "users", "gyms"
 end

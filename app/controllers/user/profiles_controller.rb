@@ -5,6 +5,8 @@ class User::ProfilesController < User::Base
 
   def edit
     @user = current_user
+    @gyms = Gym.all
+    @mygym_id = @user.gym&.id
   end
 
   def update
@@ -22,7 +24,7 @@ class User::ProfilesController < User::Base
 
   def user_params
     params.require(:user).permit(
-      :name, :experience, :frequency, :level, :introduction
+      :name, :experience, :frequency, :level, :gym_id, :introduction
     )
   end
 end

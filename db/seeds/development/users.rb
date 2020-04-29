@@ -7,7 +7,8 @@ User.create!(
   frequency: '1',
   level: '3', 
   status: 'stable', 
-  introduction: 'どーも。'
+  introduction: 'どーも。',
+  gym_id: 1,
 ) 
 
 names_1 = %w{
@@ -30,7 +31,7 @@ names_2 = %w{
   un2 = names_2[n % 5].split(":")
 
   User.create!(
-    email: "#{un1[1]}_#{un2[1]}@example.com",
+    email: "test#{n+1}@example.com",
     password: "password",
     name: un1[0] + '_' + un2[0],
     uid: un1[1][0..2] + un2[1],

@@ -6,6 +6,7 @@
     m << q.text_field_block(:experience, "経歴")
     m << q.text_field_block(:frequency, "頻度")
     m << q.text_field_block(:level, "レベル")
+    m << q.drop_down_collection_block(:gym_id, 'マイジム', @gyms, :id, :name)
     m << q.text_field_block(:introduction, "ひとこと")
   end
 end %>

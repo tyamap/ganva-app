@@ -26,6 +26,10 @@
       <td><%= @user.level %></td>
     </tr>
     <tr>
+      <th>マイジム</th>
+      <td><%= @user.gym ? @user.gym.name : '未設定' %></td>
+    </tr>
+    <tr>
       <th>ひとこと</th>
       <td><%= @user.introduction %></td>
     </tr>

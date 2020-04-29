@@ -7,7 +7,7 @@ class CreateActivities < ActiveRecord::Migration[6.0]
       t.string      :end_time,    null: false
       t.references  :gym,         null: false
       t.string      :level
-      t.string      :status,      null: false, default: 'ready'
+      t.string      :status,      null: false, default: Settings.activity.status_ready
       t.text        :description, null: false, default: ''
 
       t.timestamps

@@ -37,7 +37,7 @@ class User::ActivitiesController < User::Base
     activity.build_level_count
     if params[:activity][:level_count]
       activity.level_count.assign_attributes(level_count_params)
-      activity.status = 'recorded'
+      activity.status = Settings.activity.status_recorded
     else
       activity.level_count.mark_for_destruction
     end

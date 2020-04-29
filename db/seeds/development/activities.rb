@@ -22,11 +22,11 @@ date  = Date.new(2020, 3, 1)
         level3: n*2+2-n,
         level4: n*2+1-n,
       )
-      @activity.status = 'recorded'
+      @activity.status = Settings.activity.status_recorded
     when 1 then
-      @activity.status = 'aborted'
+      @activity.status = Settings.activity.status_aborted
     when 2 then
-      @activity.status = 'done'
+      @activity.status = Settings.activity.status_done
   end
   @activity.save
 end
@@ -52,11 +52,11 @@ ex_users.each do |u|
           level8: n*2+4-n,
           level9: n*2+5-n,
         )
-        @activity.status = 'recorded'
+        @activity.status = Settings.activity.status_recorded
       when 1 then
-        @activity.status = 'aborted'
+        @activity.status = Settings.activity.status_aborted
       when 2 then
-        @activity.status = 'done'
+        @activity.status = Settings.activity.status_done
     end
     @activity.save
   end

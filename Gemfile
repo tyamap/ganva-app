@@ -14,13 +14,13 @@ gem 'webpacker', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'bcrypt'
+gem 'config'
 gem 'date_validator'
 gem 'kaminari'
 gem 'nokogiri'
 gem 'rails-i18n'
 gem 'unicorn'
 gem 'valid_email2'
-gem 'config'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

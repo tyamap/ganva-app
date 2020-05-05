@@ -81,7 +81,8 @@ class FormPresenter
     end
   end
 
-  def drop_down_collection_block(attr_name, label_text, collection, value, view, selected = nil , blank = '- 未選択 -', options = {})
+  def drop_down_collection_block(attr_name, label_text, collection, value, view,
+                                 selected = nil, blank = '- 未選択 -', options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(attr_name, label_text, options)
       m << collection_select(attr_name, collection, value, view, { selected: selected, include_blank: blank }, options)
@@ -92,8 +93,8 @@ class FormPresenter
   def error_messages_for(name)
     markup do |m|
       object.errors.full_messages_for(name).each do |message|
-        m.div(class: 'error-message') do |m|
-          m.text message
+        m.div(class: 'error-message') do |mm|
+          mm.text message
         end
       end
     end

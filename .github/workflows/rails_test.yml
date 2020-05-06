@@ -17,7 +17,7 @@ jobs:
         POSTGRES_PASSWORD: password
     steps:
       - uses: actions/checkout@v1
-      - name: Prepare bundler
+      - name: Prepare bundler 
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3

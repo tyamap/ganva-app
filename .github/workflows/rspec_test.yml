@@ -10,7 +10,7 @@ jobs:
       - name: Prepare ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.x
+          ruby-version: 2.7.x
       - name: Prepare bundler
         run: |
           gem install bundler

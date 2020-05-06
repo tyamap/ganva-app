@@ -1,9 +1,17 @@
 <% @title = 'HOME'%>
 <h1><%= @title %></h1>
 
-<% provide(:title, @user.name) %>
-<h1>
-  <%= gravatar_for @user %>
-  <%= link_to "@#{@user.uid}", [:user, @user] %>
-</h1>
-<h2><%= @user.name + "さん" %></h2>
+  <div class='row'>
+    <aside class='col-md-4'>
+      <section class='user_info'>
+        <%= render 'user/shared/user_info' %>
+      </section>
+      <section class='stats'>
+        <%= render 'user/shared/stats' %>
+      </section>
+    </aside>
+    <div class='col-md-8'>
+      <h3>Activity Feed</h3>
+      <%= render 'user/shared/feed' %>
+    </div>
+  </div>

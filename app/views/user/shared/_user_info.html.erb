@@ -1,0 +1,3 @@
+<%= link_to gravatar_for(current_user, size: 150), [:user, current_user] %>
+<h1><%= link_to "@#{current_user.uid}", [:user, current_user] %></h1>
+<h2><%= current_user.name %></h2>

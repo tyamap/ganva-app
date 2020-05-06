@@ -1,4 +1,4 @@
-name: Rubocop
+name: Rspec
 
 on: [push]
 
@@ -10,7 +10,7 @@ jobs:
       - name: Prepare ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.6.4
+          ruby-version: 2.6.x
       - name: Prepare bundler
         run: |
           gem install bundler

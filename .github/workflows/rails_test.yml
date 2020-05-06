@@ -11,7 +11,7 @@ jobs:
         env:
           POSTGRES_PASSWORD: password
     container:
-      image: ruby:2.6.4
+      image: ruby:2.6.6
       env:
         POSTGRES_HOST: postgres
         POSTGRES_PASSWORD: password

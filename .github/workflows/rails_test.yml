@@ -5,29 +5,16 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11.5
-        env:
-          POSTGRES_PASSWORD: password
     container:
       image: ruby:2.6.4
       env:
-        POSTGRES_HOST: postgres
-        POSTGRES_PASSWORD: password
+        RAILS＿ENV: test
     steps:
       - uses: actions/checkout@v1
       - name: Prepare bundler
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-      - name: Prepare database
-        run: |
-          rails db:create
-          rails db:migrate
       - name: Run rubocop
         run: |
           bundle exec rubocop
-      - name: Run rspec
-        run: |
-          bundle exec rspec

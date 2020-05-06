@@ -134,5 +134,16 @@ RSpec.describe User, type: :model do
       expect(@spidey.following?(@ironman)).to be_falsey
     end
   end
+
+  describe 'feed' do
+    let(:spidey) {create :user, :with_commit_activities}
+    let(:ironman) {create :user, :with_commit_activities}
+
+    example 'フォローしているユーザーのアクティビティを閲覧できる' do
+      spidey.follow(ironman)
+      ironman.activities.each do |post|
+        expect(spidey.feed.include?(post)).to be_truthy
+      end
+    end
+  end
 end
-  

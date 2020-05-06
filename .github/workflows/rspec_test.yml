@@ -1,4 +1,4 @@
-name: Ruby
+name: Rspec
 
 on: [push]
 
@@ -10,13 +10,13 @@ jobs:
         image: postgres:11.5
         env:
           POSTGRES_PASSWORD: password
-          RAILS＿ENV: test
+          RAILS_ENV: test
     container:
       image: ruby:2.6.4
       env:
-        POSTGRES_HOST: postgres
+        POSTGRES_HOST: db
         POSTGRES_PASSWORD: password
-        RAILS＿ENV: test
+        RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
       - name: Prepare node and yarn

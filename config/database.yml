@@ -14,6 +14,7 @@ test:
   <<: *default
   database: <%= ENV.fetch('PGDB') {'ganva_test'} %>
   host: <%= ENV.fetch('PGHOST') {'db'} %>
+  password: <%= ENV.fetch('PGPW') {''} %>
 
 <% if ENV['RAILS_ENV'] == 'production' %>
 production:

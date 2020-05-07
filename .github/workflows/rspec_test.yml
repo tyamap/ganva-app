@@ -27,7 +27,7 @@ jobs:
 
     - name: Build App
       env:
-        PGHOST: localhost
+        PGHOST: db
         PGUSER: postgres
         RAILS_ENV: test
       run: |
@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Tests
       env:
-        PGHOST: localhost
+        PGHOST: db
         PGUSER: postgres
         RAILS_ENV: test
       run: |

@@ -9,12 +9,17 @@ jobs:
       postgres:
         image: postgres:11.5
         env:
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432/tcp
     container:
       image: ruby:2.7.1
       env:
-        POSTGRES_HOST: db
-        POSTGRES_PASSWORD: password
+        PG_HOST: postgres
+        PG_USER: postgres
+        PG_DATABASE: postgres
+        PG_PASSWORD: postgres
+        PG_PORT: ${{ job.services.postgres.ports['5432'] }}
         RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1

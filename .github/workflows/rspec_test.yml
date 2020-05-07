@@ -36,7 +36,7 @@ jobs:
 
     - name: Set up Database
       env:
-        PGHOST: postgres
+        PGHOST: 127.0.0.1
         PGDB: postgres
         RAILS_ENV: test
       run: |
@@ -44,7 +44,7 @@ jobs:
 
     - name: Run Tests
       env:
-        PGHOST: postgres
+        PGHOST: 127.0.0.1
         PGDB: postgres
         RAILS_ENV: test
       run: |

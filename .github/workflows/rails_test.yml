@@ -1,4 +1,4 @@
-name: Rspec
+name: RailsTest
 
 on: [push]
 
@@ -43,7 +43,11 @@ jobs:
       run: |
         bin/rails db:setup
 
-    - name: Run Tests
+    - name: Run Rubocop
+      run: |
+        bundle exec rubocop
+
+    - name: Run Rspec
       env:
         PGHOST: 127.0.0.1
         PGDB: postgres

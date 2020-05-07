@@ -5,19 +5,38 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11.5
+        env:
+          POSTGRES_PASSWORD: password
+          RAILS_ENV: test
+    container:
+      image: ruby:2.7.1
+      env:
+        POSTGRES_HOST: db
+        POSTGRES_PASSWORD: password
+        RAILS_ENV: test
     steps:
       - uses: actions/checkout@v1
-      - name: Prepare ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.7.x
+      - name: Prepare node and yarn
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+          curl -sL https://deb.nodesource.com/setup_12.x | bash -
+          apt install -y nodejs yarn
       - name: Prepare bundler
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
-      - name: Test with Rubocop
+      - name: Prepare database
+        run: |
+          yarn install --check-files
+          rails db:create RAILS_ENV=test
+          rails db:migrate RAILS_ENV=test
+      - name: Run rubocop
         run: |
           bundle exec rubocop
-      - name: Test with Rspec
+      - name: Run rspec
         run: |
           bundle exec rspec

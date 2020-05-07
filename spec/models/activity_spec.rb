@@ -45,6 +45,9 @@ RSpec.describe Activity, type: :model do
       expect(commit_act).not_to be_valid
     end
 
+    #
+    # ステータスの設定
+    #
     describe 'status' do
       example '既定の文字列以外は登録できない' do
         commit_act.status = 'hogefuga'
@@ -139,6 +142,89 @@ RSpec.describe Activity, type: :model do
           expect(commit_act.end_datetime > dt_now).to be_truthy
           expect(commit_act).not_to be_valid
         end
+      end
+    end
+
+    #
+    # ステータス変更
+    #
+    describe 'update status' do
+      example 'ready から aborted に変更できる' do
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
+        expect(spidey.activities.first.update(status: Settings.activity.status_aborted)).to be_truthy
+      end
+
+      example 'ready から done に変更できる' do
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
+        expect(spidey.activities.first.update(status: Settings.activity.status_done)).to be_truthy
+      end
+
+      example 'ready から recorded に変更できる' do
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
+        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_truthy
+      end
+
+      example 'aborted から ready に変更できる' do
+        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status_ready)).to be_truthy
+      end
+
+      example 'aborted から done に変更できない' do
+        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status_done)).to be_falsey
+      end
+
+      example 'aborted から recorded に変更できない' do
+        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_falsey
+      end
+
+      example 'done から ready に変更できない' do
+        spidey.activities.first.status = Settings.activity.status_done
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_done
+        expect(spidey.activities.first.update(status: Settings.activity.status_ready)).to be_falsey
+      end
+
+      example 'done から aborted に変更できない' do
+        spidey.activities.first.status = Settings.activity.status_done
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_done
+        expect(spidey.activities.first.update(status: Settings.activity.status_aborted)).to be_falsey
+      end
+
+      example 'done から recorded に変更できる' do
+        spidey.activities.first.status = Settings.activity.status_done
+        spidey.save!
+        expect(spidey.activities.first.status).to eq Settings.activity.status_done
+        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_truthy
+      end
+
+      example 'recorded から ready には変更できない' do
+        ironman.save!
+        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status_ready)).to be_falsey
+      end
+
+      example 'recorded から done には変更できない' do
+        ironman.save!
+        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status_done)).to be_falsey
+      end
+
+      example 'recorded から aborted には変更できない' do
+        ironman.save!
+        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status_aborted)).to be_falsey
       end
     end
   end

@@ -15,14 +15,14 @@ FactoryBot.define do
     trait :with_commit_activities do
       after(:build) do |user|
         user.activities << FactoryBot.build(:activity)
-        user.activities << FactoryBot.build(:activity, date: Date.new(2020, 3, 1))
+        user.activities << FactoryBot.build(:activity, date: Date.new(2020, 3, 2))
       end
     end
 
     trait :with_result_activities do
       after(:build) do |user|
         user.activities << FactoryBot.build(:activity, status: Settings.activity.status_recorded)
-        user.activities << FactoryBot.build(:activity, date: Date.new(2020, 3, 1), status: Settings.activity.status_recorded)
+        user.activities << FactoryBot.build(:activity, date: Date.new(2020, 3, 2), status: Settings.activity.status_recorded)
       end
     end
   end

@@ -10,7 +10,12 @@ jobs:
     services:
       postgres:
         image: postgres:11.5
-        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
     - uses: actions/checkout@v1
@@ -24,21 +29,23 @@ jobs:
       run: |
         sudo apt-get -yqq install libpq-dev
 
-    - name: Set up Bundler
+    - name: Build App
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
 
     - name: Set up Database
       env:
+        PGHOST: postgres
+        PGDB: postgres
         RAILS_ENV: test
-        DATABASE_URL: postgresql://postgres@localhost:5432/postgres?encoding=utf8&pool=5&timeout=5000
       run: |
         bin/rails db:setup
 
     - name: Run Tests
       env:
+        PGHOST: postgres
+        PGDB: postgres
         RAILS_ENV: test
-        DATABASE_URL: postgresql://postgres@localhost:5432/postgres?encoding=utf8&pool=5&timeout=5000
       run: |
         bundle exec rspec

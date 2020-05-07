@@ -12,8 +12,8 @@ development:
 
 test:
   <<: *default
-  database: ganva_test
-  url: <%= ENV['DATABASE_URL'].gsub('?', '_test?' ) %>
+  database: <%= ENV.fetch('PGDB') {'ganva_test'} %>
+  host: <%= ENV.fetch('PGHOST') {'db'} %>
 
 <% if ENV['RAILS_ENV'] == 'production' %>
 production:

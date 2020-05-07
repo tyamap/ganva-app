@@ -10,9 +10,13 @@ jobs:
     services:
       postgres:
         image: postgres:11.5
-        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
     - uses: actions/checkout@v1
 
@@ -27,7 +31,7 @@ jobs:
 
     - name: Build App
       env:
-        PGHOST: db
+        PGHOST: postgres
         PGUSER: postgres
         RAILS_ENV: test
       run: |
@@ -37,7 +41,7 @@ jobs:
 
     - name: Run Tests
       env:
-        PGHOST: db
+        PGHOST: postgres
         PGUSER: postgres
         RAILS_ENV: test
       run: |

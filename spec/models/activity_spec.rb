@@ -130,7 +130,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = two_hour_ago
           commit_act.end_time = hour_ago
-          commit_act.status = Settings.activity.status_result
+          commit_act.status = Settings.activity.status.recorded
 
           expect(commit_act.end_datetime < dt_now).to be_truthy
           expect(commit_act).to be_valid
@@ -140,7 +140,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = hour_togo
           commit_act.end_time = two_hour_togo
-          commit_act.status = Settings.activity.status_result
+          commit_act.status = Settings.activity.status.recorded
 
           expect(commit_act.end_datetime > dt_now).to be_truthy
           expect(commit_act).not_to be_valid

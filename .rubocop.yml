@@ -63,6 +63,9 @@ Metrics/AbcSize:
 Metrics/MethodLength:
     Max: 15
 
+Metrics/CyclomaticComplexity:
+    Max: 10
+
 Rails/HelperInstanceVariable:
     Enabled: false
 

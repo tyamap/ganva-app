@@ -1,5 +1,6 @@
 activity:
-  status_ready:     'ready'
-  status_aborted:   'aborted'
-  status_done:      'done'
-  status_recorded:  'recorded'
+  status:
+    ready:     'ready'
+    aborted:   'aborted'
+    done:      'done'
+    recorded:  'recorded'

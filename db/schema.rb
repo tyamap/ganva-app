@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 2020_03_25_130600) do
 
   create_table "activities", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "date", null: false
-    t.string "start_time", null: false
-    t.string "end_time", null: false
+    t.date "date", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
     t.bigint "gym_id", null: false
     t.string "level"
     t.string "status", default: "ready", null: false

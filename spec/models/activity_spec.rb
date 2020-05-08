@@ -18,11 +18,11 @@ RSpec.describe Activity, type: :model do
   let(:tomorrow) {dt_now.tomorrow.strftime("%Y-%m-%d")}
 
   # 時間
-  let(:nowtime) {dt_now.strftime("%H:%M:%S")} 
-  let(:hour_ago) {dt_now.ago(1.hours).strftime("%H:%M:%S")} 
-  let(:two_hour_ago) {dt_now.ago(2.hours).strftime("%H:%M:%S")} 
-  let(:hour_togo) {dt_now.since(1.hours).strftime("%H:%M:%S")} 
-  let(:two_hour_togo) {dt_now.since(2.hours).strftime("%H:%M:%S")} 
+  let(:nowtime) {dt_now.strftime("%H:%M")} 
+  let(:hour_ago) {dt_now.ago(1.hours).strftime("%H:%M")} 
+  let(:two_hour_ago) {dt_now.ago(2.hours).strftime("%H:%M")} 
+  let(:hour_togo) {dt_now.since(1.hours).strftime("%H:%M")} 
+  let(:two_hour_togo) {dt_now.since(2.hours).strftime("%H:%M")} 
 
   describe 'validation' do
 
@@ -42,8 +42,8 @@ RSpec.describe Activity, type: :model do
     end
     example '開始時刻が終了時刻より１秒後のものは登録できない' do
       commit_act.date = today
-      commit_act.start_time = dt_now.since(60.seconds).strftime("%H:%M:%S")
-      commit_act.end_time = dt_now.since(59.seconds).strftime("%H:%M:%S")
+      commit_act.start_time = dt_now.since(60.seconds).strftime("%H:%M")
+      commit_act.end_time = dt_now.since(59.seconds).strftime("%H:%M")
       expect(commit_act.start_datetime - commit_act.end_datetime).to eq 1.0
       expect(commit_act).not_to be_valid
     end
@@ -62,7 +62,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = hour_togo
           commit_act.end_time = two_hour_togo
-          commit_act.status = Settings.activity.status_ready
+          commit_act.status = Settings.activity.status.ready
 
           # 前提条件の確認
           expect(commit_act.start_datetime > dt_now).to be_truthy
@@ -74,7 +74,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = two_hour_ago
           commit_act.end_time = hour_togo
-          commit_act.status = Settings.activity.status_ready
+          commit_act.status = Settings.activity.status.ready
 
           expect(commit_act.start_datetime < dt_now).to be_truthy
           expect(commit_act).not_to be_valid
@@ -86,7 +86,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = hour_togo
           commit_act.end_time = two_hour_togo
-          commit_act.status = Settings.activity.status_aborted
+          commit_act.status = Settings.activity.status.aborted
 
           expect(commit_act.end_datetime > dt_now).to be_truthy
           expect(commit_act).to be_valid
@@ -96,7 +96,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = two_hour_ago
           commit_act.end_time = hour_ago
-          commit_act.status = Settings.activity.status_aborted
+          commit_act.status = Settings.activity.status.aborted
 
           expect(commit_act.end_datetime < dt_now).to be_truthy
           expect(commit_act).not_to be_valid
@@ -108,7 +108,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = two_hour_ago
           commit_act.end_time = hour_togo
-          commit_act.status = Settings.activity.status_done
+          commit_act.status = Settings.activity.status.done
 
           expect(commit_act.start_datetime < dt_now).to be_truthy
           expect(commit_act).to be_valid
@@ -118,7 +118,7 @@ RSpec.describe Activity, type: :model do
           commit_act.date = today
           commit_act.start_time = hour_togo
           commit_act.end_time = two_hour_togo
-          commit_act.status = Settings.activity.status_done
+          commit_act.status = Settings.activity.status.done
 
           expect(commit_act.start_datetime > dt_now).to be_truthy
           expect(commit_act).not_to be_valid
@@ -156,80 +156,80 @@ RSpec.describe Activity, type: :model do
     describe 'status' do
       example 'ready から aborted に変更できる' do
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
-        expect(spidey.activities.first.update(status: Settings.activity.status_aborted)).to be_truthy
+        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
+        expect(spidey.activities.first.update(status: Settings.activity.status.aborted)).to be_truthy
       end
 
       example 'ready から done に変更できる' do
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
-        expect(spidey.activities.first.update(status: Settings.activity.status_done)).to be_truthy
+        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
+        expect(spidey.activities.first.update(status: Settings.activity.status.done)).to be_truthy
       end
 
       example 'ready から recorded に変更できる' do
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_ready
-        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_truthy
+        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
+        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_truthy
       end
 
       example 'aborted から ready に変更できる' do
-        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.activities.first.status = Settings.activity.status.aborted
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status_ready)).to be_truthy
+        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status.ready)).to be_truthy
       end
 
       example 'aborted から done に変更できない' do
-        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.activities.first.status = Settings.activity.status.aborted
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status_done)).to be_falsey
+        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status.done)).to be_falsey
       end
 
       example 'aborted から recorded に変更できない' do
-        spidey.activities.first.status = Settings.activity.status_aborted
+        spidey.activities.first.status = Settings.activity.status.aborted
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_falsey
+        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
+        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_falsey
       end
 
       example 'done から ready に変更できない' do
-        spidey.activities.first.status = Settings.activity.status_done
+        spidey.activities.first.status = Settings.activity.status.done
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_done
-        expect(spidey.activities.first.update(status: Settings.activity.status_ready)).to be_falsey
+        expect(spidey.activities.first.status).to eq Settings.activity.status.done
+        expect(spidey.activities.first.update(status: Settings.activity.status.ready)).to be_falsey
       end
 
       example 'done から aborted に変更できない' do
-        spidey.activities.first.status = Settings.activity.status_done
+        spidey.activities.first.status = Settings.activity.status.done
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_done
-        expect(spidey.activities.first.update(status: Settings.activity.status_aborted)).to be_falsey
+        expect(spidey.activities.first.status).to eq Settings.activity.status.done
+        expect(spidey.activities.first.update(status: Settings.activity.status.aborted)).to be_falsey
       end
 
       example 'done から recorded に変更できる' do
-        spidey.activities.first.status = Settings.activity.status_done
+        spidey.activities.first.status = Settings.activity.status.done
         spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status_done
-        expect(spidey.activities.first.update(status: Settings.activity.status_recorded)).to be_truthy
+        expect(spidey.activities.first.status).to eq Settings.activity.status.done
+        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_truthy
       end
 
       example 'recorded から ready には変更できない' do
         ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status_ready)).to be_falsey
+        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status.ready)).to be_falsey
       end
 
       example 'recorded から done には変更できない' do
         ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status_done)).to be_falsey
+        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status.done)).to be_falsey
       end
 
       example 'recorded から aborted には変更できない' do
         ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status_recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status_aborted)).to be_falsey
+        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
+        expect(ironman.activities.first.update(status: Settings.activity.status.aborted)).to be_falsey
       end
     end
   end

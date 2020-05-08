@@ -1,17 +1,19 @@
 users = User.all
 user  = users.first
 date  = Date.new(2020, 3, 1)
+start_time  = '18:00'
+end_time    = '20:00'
 
 10.times do |n|
   @date =  date.next_day(n)
   @level = n%2
   @activity = user.activities.create(
     date: @date,
-    start_time: @date.to_time + (60*60*12),
-    end_time: @date.to_time + (60*60*14),
+    start_time: start_time,
+    end_time: end_time,
     gym_id: n%3+1,
     level: @level,
-    description: "今日はジム#{n%3+1}でレベル#{n%2}に挑戦！#{(n+1)*2}回ゴール達成するまで頑張ります！" ,
+    description: "ジム#{n%3+1}でレベル#{n%2}に挑戦！" ,
   )
   case n%3
     when 0 then
@@ -37,8 +39,8 @@ ex_users.each do |u|
 
     @activity = u.activities.create(
       date: @date,
-      start_time: @date.to_time + (60*60*12),
-      end_time: @date.to_time + (60*60*14),
+      start_time: start_time,
+      end_time: end_time,
       gym_id: n%3+1,
       level: @level,
       description: "今日はジム#{n%2+1}でレベル#{n%3}に挑戦！#{(n+1)*2}回ゴール達成するまで頑張ります！",

@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Activity, type: :model do
-  # User 定義
-  let(:spidey) {build :user, :with_commit_activities}
-  let(:ironman) {build :user, :with_result_activities}
+  around do |e|
+    travel_to(Time.zone.parse('2020-4-1 12:30')) {e.run}
+  end
   
   # 宣言と結果
-  let(:commit_act) {spidey.activities.first}
-  let(:result_act) {ironman.activities.first}
+  let(:commit_act) {build :activity}
 
   # 現在日時
-  let(:dt_now) {Time.zone.parse("2020-4-1 9:30:00")}
+  let(:dt_now) {Time.zone.parse('2020-4-1 12:30')}
 
   # 日付
   let(:today) {dt_now.strftime("%Y-%m-%d")}
@@ -87,7 +86,6 @@ RSpec.describe Activity, type: :model do
           commit_act.start_time = hour_togo
           commit_act.end_time = two_hour_togo
           commit_act.status = Settings.activity.status.aborted
-
           expect(commit_act.end_datetime > dt_now).to be_truthy
           expect(commit_act).to be_valid
         end
@@ -155,81 +153,75 @@ RSpec.describe Activity, type: :model do
   describe 'update' do
     describe 'status' do
       example 'ready から aborted に変更できる' do
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
-        expect(spidey.activities.first.update(status: Settings.activity.status.aborted)).to be_truthy
+        act = create :activity
+        expect(act.status).to eq Settings.activity.status.ready
+        expect(act.update(date: tomorrow, status: Settings.activity.status.aborted)).to be_truthy
       end
 
       example 'ready から done に変更できる' do
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
-        expect(spidey.activities.first.update(status: Settings.activity.status.done)).to be_truthy
+        act = create :activity
+        expect(act.status).to eq Settings.activity.status.ready
+        expect(act.update(date: yesterday, status: Settings.activity.status.done)).to be_truthy
       end
 
       example 'ready から recorded に変更できる' do
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.ready
-        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_truthy
+        act = create :activity
+        expect(act.status).to eq Settings.activity.status.ready
+        expect(act.update(date: yesterday, status: Settings.activity.status.recorded)).to be_truthy
       end
 
       example 'aborted から ready に変更できる' do
-        spidey.activities.first.status = Settings.activity.status.aborted
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status.ready)).to be_truthy
+        act = create :activity, :with_aborted
+        expect(act.status).to eq Settings.activity.status.aborted
+        expect(act.update(date: tomorrow, status: Settings.activity.status.ready)).to be_truthy
       end
 
       example 'aborted から done に変更できない' do
-        spidey.activities.first.status = Settings.activity.status.aborted
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status.done)).to be_falsey
+        act = create :activity, :with_aborted
+        expect(act.status).to eq Settings.activity.status.aborted
+        expect(act.update(date: yesterday, status: Settings.activity.status.done)).to be_falsey
       end
 
       example 'aborted から recorded に変更できない' do
-        spidey.activities.first.status = Settings.activity.status.aborted
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.aborted
-        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_falsey
+        act = create :activity, :with_aborted
+        expect(act.status).to eq Settings.activity.status.aborted
+        expect(act.update(date: yesterday, status: Settings.activity.status.recorded)).to be_falsey
       end
 
       example 'done から ready に変更できない' do
-        spidey.activities.first.status = Settings.activity.status.done
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.done
-        expect(spidey.activities.first.update(status: Settings.activity.status.ready)).to be_falsey
+        act = create :activity, :with_done
+        expect(act.status).to eq Settings.activity.status.done
+        expect(act.update(date: tomorrow, status: Settings.activity.status.ready)).to be_falsey
       end
 
       example 'done から aborted に変更できない' do
-        spidey.activities.first.status = Settings.activity.status.done
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.done
-        expect(spidey.activities.first.update(status: Settings.activity.status.aborted)).to be_falsey
+        act = create :activity, :with_done
+        expect(act.status).to eq Settings.activity.status.done
+        expect(act.update(date: tomorrow, status: Settings.activity.status.aborted)).to be_falsey
       end
 
       example 'done から recorded に変更できる' do
-        spidey.activities.first.status = Settings.activity.status.done
-        spidey.save!
-        expect(spidey.activities.first.status).to eq Settings.activity.status.done
-        expect(spidey.activities.first.update(status: Settings.activity.status.recorded)).to be_truthy
+        act = create :activity, :with_done
+        expect(act.status).to eq Settings.activity.status.done
+        expect(act.update(date: yesterday, status: Settings.activity.status.recorded)).to be_truthy
       end
 
       example 'recorded から ready には変更できない' do
-        ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status.ready)).to be_falsey
+        act = create :activity, :with_recorded
+        expect(act.status).to eq Settings.activity.status.recorded
+        expect(act.update(date: tomorrow, status: Settings.activity.status.ready)).to be_falsey
       end
 
       example 'recorded から done には変更できない' do
-        ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status.done)).to be_falsey
+        act = create :activity, :with_recorded
+        expect(act.status).to eq Settings.activity.status.recorded
+        expect(act.update(date: yesterday, status: Settings.activity.status.done)).to be_falsey
       end
 
       example 'recorded から aborted には変更できない' do
-        ironman.save!
-        expect(ironman.activities.first.status).to eq Settings.activity.status.recorded
-        expect(ironman.activities.first.update(status: Settings.activity.status.aborted)).to be_falsey
+        act = create :activity, :with_recorded
+        expect(act.status).to eq Settings.activity.status.recorded
+        expect(act.update(date: tomorrow, status: Settings.activity.status.aborted)).to be_falsey
       end
     end
   end

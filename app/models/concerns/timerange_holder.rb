@@ -17,9 +17,9 @@ module TimerangeHolder
   def with_status
     case status
     when Settings.activity.status.ready
-      errors.add(:start_time, '現在日時よりも後の日時を指定してください') if self.start_datetime < Time.current
+      errors.add(:start_time, '現在日時よりも後の日時を指定してください') if start_datetime < Time.current
     when Settings.activity.status.recorded
-      errors.add(:end_time, '現在日時よりも前の日時を指定してください') if self.end_datetime > Time.current
+      errors.add(:end_time, '現在日時よりも前の日時を指定してください') if end_datetime > Time.current
     end
   end
 end

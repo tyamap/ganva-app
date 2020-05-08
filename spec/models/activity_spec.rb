@@ -42,8 +42,8 @@ RSpec.describe Activity, type: :model do
     end
     example '開始時刻が終了時刻より１秒後のものは登録できない' do
       commit_act.date = today
-      commit_act.start_time = dt_now.since(60.seconds).strftime("%H:%M")
-      commit_act.end_time = dt_now.since(59.seconds).strftime("%H:%M")
+      commit_act.start_time = dt_now.since(60.seconds).strftime("%H:%M:%S")
+      commit_act.end_time = dt_now.since(59.seconds).strftime("%H:%M:%S")
       expect(commit_act.start_datetime - commit_act.end_datetime).to eq 1.0
       expect(commit_act).not_to be_valid
     end

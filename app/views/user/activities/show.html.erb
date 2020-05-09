@@ -34,24 +34,16 @@
     </thead>
     <tr>
       <th>時間</th>
-      <td><%= Time.parse(@activity.start_time).strftime("%X") %> 〜 <%= Time.parse(@activity.end_time).strftime("%X") %></td>
+      <td><%= @activity.start_time.strftime('%H:%M') %> 〜 <%= @activity.end_time.strftime('%H:%M') %></td>
     </tr>
     <tr>
       <th>場所</th>
       <td><%= @gym.name %></td>
     </tr>
-    <% if @activity.status == Settings.activity.status.recorded %>
-      <% @ln = @gym.level_name %>
-      <tr><th><%= @ln.level0 %></th><td><%= @activity.level_count.level0 %></td></tr>
-      <tr><th><%= @ln.level1 %></th><td><%= @activity.level_count.level1 %></td></tr>
-      <tr><th><%= @ln.level2 %></th><td><%= @activity.level_count.level2 %></td></tr>
-      <tr><th><%= @ln.level3 %></th><td><%= @activity.level_count.level3 %></td></tr>
-      <tr><th><%= @ln.level4 %></th><td><%= @activity.level_count.level4 %></td></tr>
-      <tr><th><%= @ln.level5 %></th><td><%= @activity.level_count.level5 %></td></tr>
-      <tr><th><%= @ln.level6 %></th><td><%= @activity.level_count.level6 %></td></tr>
-      <tr><th><%= @ln.level7 %></th><td><%= @activity.level_count.level7 %></td></tr>
-      <tr><th><%= @ln.level8 %></th><td><%= @activity.level_count.level8 %></td></tr>
-      <tr><th><%= @ln.level9 %></th><td><%= @activity.level_count.level9 %></td></tr>
+    <% if @lc_attr %>
+      <% @ln_attr.zip @lc_attr do |ln, lc| %>
+        <tr><th><%= ln %></th><td><%= lc %></td></tr>
+      <% end %>
     <% else %>
       <tr>
         <th>レベル</th>

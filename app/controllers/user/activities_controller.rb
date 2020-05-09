@@ -10,7 +10,11 @@ class User::ActivitiesController < User::Base
 
   def show
     @activity = Activity.find(params[:id])
-    @gym = Gym.find(@activity.gym_id)
+    @gym = @activity.gym
+    if @activity.status == Settings.activity.status.recorded
+      @lc_attr = @activity.level_count.attributes.values[2..11]
+      @ln_attr = @gym.level_name.attributes.values[2..11]
+    end
   end
 
   def new_commit

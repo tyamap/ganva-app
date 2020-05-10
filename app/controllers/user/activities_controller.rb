@@ -5,13 +5,14 @@ class User::ActivitiesController < User::Base
             else
               current_user
             end
-    @activities = @user.activities
+    @activities = @user.activities.order(date: :desc).includes(:gym)
   end
 
   def show
     @activity = Activity.find(params[:id])
     @gym = @activity.gym
     if @activity.status == Settings.activity.status.recorded
+      # 結果レベル情報の取得
       @lc_attr = @activity.level_count.attributes.values[2..11]
       @ln_attr = @gym.level_name.attributes.values[2..11]
     end

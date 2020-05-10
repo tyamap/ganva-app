@@ -16,3 +16,7 @@
     end
   end %>
 <% end  %>
+<%= markup do |m|
+  p = UserFormPresenter.new(f, self)
+  m << p.textarea_field_block(:description, '説明文')
+end %>

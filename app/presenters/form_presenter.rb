@@ -2,7 +2,8 @@ class FormPresenter
   include HtmlBuilder
 
   attr_reader :form_builder, :view_context
-  delegate :label, :text_field, :date_field, :password_field, :time_select, :collection_select, :number_field,
+  delegate :label, :text_field, :date_field, :date_select, :password_field,
+           :time_select, :collection_select, :number_field,
            :check_box, :radio_button, :text_area, :select, :object, to: :form_builder
 
   def initialize(form_builder, view_context)
@@ -57,6 +58,14 @@ class FormPresenter
     end
   end
 
+  def date_select_block(name, label_text, options = {})
+    markup(:div, class: 'input-block') do |m|
+      m << decorated_label(name, label_text, options)
+      m << date_select(name, options)
+      m << error_messages_for(name)
+    end
+  end
+
   def number_field_block(name, label_text, options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(name, label_text, options)
@@ -81,11 +90,10 @@ class FormPresenter
     end
   end
 
-  def drop_down_collection_block(attr_name, label_text, collection, value, view,
-                                 selected = nil, blank = '- 未選択 -', options = {})
+  def drop_down_collection_block(attr_name, label_text, collection, value, view, options = {})
     markup(:div, class: 'input-block') do |m|
       m << decorated_label(attr_name, label_text, options)
-      m << collection_select(attr_name, collection, value, view, { selected: selected, include_blank: blank }, options)
+      m << collection_select(attr_name, collection, value, view, options)
       m << error_messages_for(attr_name)
     end
   end

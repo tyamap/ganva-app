@@ -9,9 +9,9 @@ end_time    = '20:00'
     date: date.since(n.days).strftime('%Y-%m-%d'),
     start_time: start_time,
     end_time: end_time,
-    gym_id: n%3+1,
+    gym: Gym.all[n%3],
     level: n%2,
-    description: "ジム#{n%3+1}でレベル#{n%2}に挑戦！" ,
+    description: "#{Gym.all[n%3].name}でレベル#{n%2}に挑戦！" ,
   )
   case n%4
     when 0 then

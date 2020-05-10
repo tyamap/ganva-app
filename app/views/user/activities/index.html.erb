@@ -1,41 +1,31 @@
 <% @title = 'アクティビティ一覧'%>
 <h1><%= @title %></h1>
 
-<div class="table-wrapper">
+<div class='table-wrapper'>
   <% if @user == current_user %>
-    <div class="links">
-      <%= link_to "宣言する", :commit_new_user_activities %>
-      <%= link_to "記録する", :result_new_user_activities %>
+    <div class='links'>
+      <%= link_to '宣言する', :commit_new_user_activities %>
+      <%= link_to '記録する', :result_new_user_activities %>
     </div>
   <% end %>
-
   <table class='listing'>
     <thead class='thead-dark'>
       <tr>
         <th>日付</th>
+        <th>ジム</th>
         <th>状態</th>
         <th>操作</th>
       </tr>
     </thead>
     <% @activities.each do |a| %>
       <tr>
-        <td><%= a.date %></td>
-        <td><%= a.status %></td>
-        <td class="actions">
-          <%= link_to "詳細", [ :user, @user, a ] %>
-          <% if @user == current_user %>
-            | <%= link_to "編集", [ :edit, :user, a ] %> |
-            <%= link_to "削除", [ :user, a ], method: :delete,
-              data: { confirm: "本当に削除しますか？" } %>
-          <% end %>
-        </td>
-      </tr>
+        <%= render 'activity_tr', activity: a %>
     <% end %>
   </table>
 
   <% if @user == current_user %>
-    <div class="links">
-      <%= link_to "宣言する", :commit_new_user_activities %>
+    <div class='links'>
+      <%= link_to '宣言する', :commit_new_user_activities %>
     </div>
   <% end %>
 </div>

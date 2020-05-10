@@ -1,23 +1,7 @@
-<%
-  case activity.status
-  when Settings.activity.status.ready
-    st_label   = 'label-primary'
-    st_content = '　予定　' 
-  when Settings.activity.status.recorded
-    st_label = 'label-success'
-    st_content = '記録済み' 
-  when Settings.activity.status.aborted
-    st_label = 'label-danger'
-    st_content = '　中止　' 
-  when Settings.activity.status.done
-    st_label = 'label-warning'
-    st_content = '　完了　' 
-  end 
-%>
 <tr id='activity-<%= activity.id %>'>
   <td><%= activity.date %></td>
   <td><%= activity.gym.name %></td>
-  <td class='label <%= st_label %>'><%= st_content %></td>
+  <td><%= render 'status_label', status: activity.status %></td>
   <td class='actions'>
     <%= link_to '詳細', [ :user, @user, activity ] %>
     <% if @user == current_user %>

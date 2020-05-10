@@ -1,21 +1,5 @@
 <% @title = @activity.date %>
-<%
-  case @activity.status
-  when Settings.activity.status.ready
-    st_label   = 'label-primary'
-    st_content = '　予定　' 
-  when Settings.activity.status.recorded
-    st_label = 'label-success'
-    st_content = '記録済み' 
-  when Settings.activity.status.aborted
-    st_label = 'label-danger'
-    st_content = '　中止　' 
-  when Settings.activity.status.done
-    st_label = 'label-warning'
-    st_content = '　完了　' 
-  end 
-%>
-<h1><%= @title %> <span class='label <%= st_label %>'><%= st_content %></span></h1>
+<h1><%= @title %> <%= render 'status_label', status: @activity.status %></h1>
 
 <div class="table-wrapper">
   <table class="attributes">

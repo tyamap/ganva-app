@@ -1,11 +1,35 @@
 <% @title = @activity.date %>
-<h1><%= @title %></h1>
+<%
+  case @activity.status
+  when Settings.activity.status.ready
+    st_label   = 'label-primary'
+    st_content = '　予定　' 
+  when Settings.activity.status.recorded
+    st_label = 'label-success'
+    st_content = '記録済み' 
+  when Settings.activity.status.aborted
+    st_label = 'label-danger'
+    st_content = '　中止　' 
+  when Settings.activity.status.done
+    st_label = 'label-warning'
+    st_content = '　完了　' 
+  end 
+%>
+<h1><%= @title %> <span class='label <%= st_label %>'><%= st_content %></span></h1>
 
 <div class="table-wrapper">
   <table class="attributes">
     <tr>
       <th>日付</th>
       <td><%= @activity.date %></td>
+    </tr>
+    <tr>
+      <th>時間</th>
+      <td><%= @activity.start_time.strftime('%H:%M') %> 〜 <%= @activity.end_time.strftime('%H:%M') %></td>
+    </tr>
+    <tr>
+      <th>ジム</th>
+      <td><%= @gym.name %></td>
     </tr>
     <tr>
       <th>説明</th>
@@ -32,14 +56,7 @@
     <thead class='thead-dark'>
       <tr><th colspan='2'><%= @title %></th></tr>
     </thead>
-    <tr>
-      <th>時間</th>
-      <td><%= @activity.start_time.strftime('%H:%M') %> 〜 <%= @activity.end_time.strftime('%H:%M') %></td>
-    </tr>
-    <tr>
-      <th>場所</th>
-      <td><%= @gym.name %></td>
-    </tr>
+
     <% if @lc_attr %>
       <% @ln_attr.zip @lc_attr do |ln, lc| %>
         <tr><th><%= ln %></th><td><%= lc %></td></tr>

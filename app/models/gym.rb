@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: gyms
+#
+#  id           :bigint           not null, primary key
+#  address1     :string           not null
+#  address2     :string           not null
+#  city         :string           not null
+#  introduction :text             not null
+#  latitude     :float            not null
+#  longitude    :float            not null
+#  name         :string           not null
+#  postal_code  :string           not null
+#  prefecture   :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 class Gym < ApplicationRecord
   include StringNormalizer
 

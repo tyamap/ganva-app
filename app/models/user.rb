@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  email           :string           not null
+#  experience      :string
+#  frequency       :string
+#  introduction    :string
+#  level           :string
+#  name            :string           not null
+#  password_digest :string           not null
+#  status          :string           default("stable"), not null
+#  uid             :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  gym_id          :bigint
+#
+# Indexes
+#
+#  index_users_on_LOWER_email  (lower((email)::text)) UNIQUE
+#  index_users_on_LOWER_uid    (lower((uid)::text)) UNIQUE
+#  index_users_on_gym_id       (gym_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (gym_id => gyms.id)
+#
 class User < ApplicationRecord
   has_secure_password
   validates :name, presence: true, length: { maximum: 50 }

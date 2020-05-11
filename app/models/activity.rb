@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: activities
+#
+#  id          :bigint           not null, primary key
+#  date        :date             not null
+#  description :text             default(""), not null
+#  end_time    :time             not null
+#  level       :string
+#  start_time  :time             not null
+#  status      :string           default("ready"), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  gym_id      :bigint           not null
+#  user_id     :bigint           not null
+#
+# Indexes
+#
+#  index_activities_on_date_and_user_id  (date,user_id)
+#  index_activities_on_gym_id            (gym_id)
+#  index_activities_on_user_id           (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (gym_id => gyms.id)
+#  fk_rails_...  (user_id => users.id)
+#
 class Activity < ApplicationRecord
   belongs_to :user
   belongs_to :gym, optional: true

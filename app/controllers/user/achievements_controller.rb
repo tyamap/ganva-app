@@ -1,7 +1,8 @@
 class User::AchievementsController < User::Base
-  index do
+  def index
+    @message = '準備中'
   end
 
-  show do
+  def show
   end
 end

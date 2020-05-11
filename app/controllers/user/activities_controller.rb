@@ -61,7 +61,35 @@ class User::ActivitiesController < User::Base
 
   end
 
-  def edit; end
+  def edit
+    @activity = Activity.find(params[:id])
+    if @activity.status == Settings.activity.status.recorded
+      @is_commit = false
+    else
+      @is_commit = true
+    end
+    @gyms = Gym.all
+    @mygym_id = current_user.gym&.id
+    render action: 'edit'
+  end
+
+  def update
+    activity = Activity.find(params[:id])
+    activity.assign_attributes(activity_params)
+    if activity.status == Settings.activity.status.recorded
+      activity.level_count.assign_attributes(level_count_params)
+    else
+      activity.level_count.mark_for_destruction
+    end
+
+    if activity.save
+      flash.notice = "アクティビティを更新しました。"
+      redirect_to action: 'index'
+    else
+      flash.alert = activity.errors.full_messages.join('　')
+      render action: 'edit'
+    end
+  end
 
   def destroy
     activity_form = Activity.find(params[:id])

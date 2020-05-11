@@ -58,16 +58,11 @@ class User::ActivitiesController < User::Base
         redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
       end
     end
-
   end
 
   def edit
     @activity = Activity.find(params[:id])
-    if @activity.status == Settings.activity.status.recorded
-      @is_commit = false
-    else
-      @is_commit = true
-    end
+    @is_commit = @activity.status != Settings.activity.status.recorded
     @gyms = Gym.all
     @mygym_id = current_user.gym&.id
     render action: 'edit'
@@ -76,16 +71,14 @@ class User::ActivitiesController < User::Base
   def update
     activity = Activity.find(params[:id])
     activity.assign_attributes(activity_params)
-    if activity.status == Settings.activity.status.recorded
-      activity.level_count.assign_attributes(level_count_params)
-    end
+    activity.level_count.assign_attributes(level_count_params) if activity.status == Settings.activity.status.recorded
 
     if activity.save
-      flash.notice = "アクティビティを更新しました。"
+      flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
     else
       flash.alert = activity.errors.full_messages.join('　')
-      redirect_to [ :edit, :user, activity ]
+      redirect_to [:edit, :user, activity]
     end
   end
 

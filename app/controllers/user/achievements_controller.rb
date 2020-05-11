@@ -3,6 +3,5 @@ class User::AchievementsController < User::Base
     @message = '準備中'
   end
 
-  def show
-  end
+  def show; end
 end

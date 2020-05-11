@@ -27,7 +27,7 @@ class LevelCount < ApplicationRecord
   with_options presence: true, numericality: {
     only_integer: true,
     greater_than_or_equal_to: 0,
-    less_than_or_equal_to: 9999,
+    less_than_or_equal_to: 9999
   } do
     validates :level0
     validates :level1

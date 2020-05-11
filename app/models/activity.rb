@@ -35,6 +35,7 @@ class Activity < ApplicationRecord
   include TimerangeHolder
   include ActivityStatusHolder
 
+  validates :gym, presence: true
   validates :date, presence: true, date: {
     after_or_equal_to: Date.new(2000, 1, 1),
     before: ->(_obj) { 1.year.from_now.to_date },

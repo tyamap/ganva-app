@@ -47,13 +47,18 @@ class User::ActivitiesController < User::Base
       activity.level_count.mark_for_destruction
     end
 
-    if activity.save!
+    if activity.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
-      flash.alert = '入力に誤りがあります。'
-      render action: 'new'
+      flash.alert = activity.errors.full_messages.join('　')
+      if params[:activity][:level_count]
+        redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
+      else
+        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
+      end
     end
+
   end
 
   def edit; end

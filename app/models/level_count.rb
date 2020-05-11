@@ -23,4 +23,21 @@
 #
 class LevelCount < ApplicationRecord
   belongs_to :activity
+
+  with_options presence: true, numericality: {
+    only_integer: true,
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 9999,
+  } do
+    validates :level0
+    validates :level1
+    validates :level2
+    validates :level3
+    validates :level4
+    validates :level5
+    validates :level6
+    validates :level7
+    validates :level8
+    validates :level9
+  end
 end

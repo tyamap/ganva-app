@@ -36,6 +36,18 @@ Style/AsciiComments:
 Style/FrozenStringLiteralComment:
     Enabled: false
 
+Layout/SpaceAroundMethodCallOperator:
+    Enabled: true
+
+Lint/RaiseException:
+    Enabled: true
+
+Lint/StructNewOverride:
+    Enabled: true
+
+Style/ExponentialNotation:
+    Enabled: true
+
 Style/HashEachMethods:
     Enabled: true
 
@@ -51,8 +63,15 @@ Metrics/AbcSize:
 Metrics/MethodLength:
     Max: 15
 
+Metrics/CyclomaticComplexity:
+    Max: 10
+
 Rails/HelperInstanceVariable:
     Enabled: false
 
 Layout/LineLength:
     Max: 120
+
+# TODO: エラーが発生するため暫定対応
+Rails/UniqueValidationWithoutIndex:
+    Enabled: false

@@ -5,12 +5,17 @@ class User::ActivitiesController < User::Base
             else
               current_user
             end
-    @activities = @user.activities
+    @activities = @user.activities.order(date: :desc).includes(:gym)
   end
 
   def show
     @activity = Activity.find(params[:id])
-    @gym = Gym.find(@activity.gym_id)
+    @gym = @activity.gym
+    return unless @activity.status == Settings.activity.status.recorded
+
+    # 結果レベル情報の取得
+    @lc_attr = @activity.level_count.attributes.values[2..11]
+    @ln_attr = @gym.level_name.attributes.values[2..11]
   end
 
   def new_commit
@@ -37,7 +42,7 @@ class User::ActivitiesController < User::Base
     activity.build_level_count
     if params[:activity][:level_count]
       activity.level_count.assign_attributes(level_count_params)
-      activity.status = Settings.activity.status_recorded
+      activity.status = Settings.activity.status.recorded
     else
       activity.level_count.mark_for_destruction
     end

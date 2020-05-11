@@ -1,14 +1,14 @@
 <% @title = '@' + @user.uid %>
 <% provide(:title, @user.name) %>
 
-<fieldset id="user-profile" class="card card-container">
-  <div class="user-icon">
+<fieldset id='user-profile' class='card card-container'>
+  <div class='user-icon'>
     <%= gravatar_for @user, size: 160%>
   </div>
-  <div class="profile">
+  <div class='profile'>
     <h2><%= link_to "@#{@user.uid}", [:user, @user] %></h2>
     <h3><%= "#{@user.name}さん" %></h3>
-    <div class="introduction">
+    <div class='introduction'>
       <p><%= @user.introduction %></p>
     </div>
   </div>
@@ -19,8 +19,8 @@
   <%= render 'follow_form' if current_user %>
   <% if @user %>
     <div class='user_menu' >
-      <%= link_to 'アクティビティ', [:user, @user, :activities], class: "btn btn-primary", role: "button" %>
-      <%= link_to 'アチーブメント', [:user, @user, :achievements], class: "btn btn-primary", role: "button" %>
+      <%= link_to 'アクティビティ', [:user, @user, :activities], class: 'btn btn-primary', role: 'button' %>
+      <%= link_to 'アチーブメント', [:user, @user, :achievements], class: 'btn btn-primary', role: 'button' %>
     </div>
   <% end  %>
 </fieldset>

@@ -2,11 +2,10 @@
   p = UserFormPresenter.new(f, self)
   m << p.notes
   p.with_options(required: true) do |q|
-    m << q.date_field_block(:date, '日付')
-    m << q.time_select_block(:start_time, '開始予定時間')
-    m << q.time_select_block(:end_time, '終了予定時間')
-    m << q.drop_down_collection_block(:gym_id, 'ジム', @gyms, :id, :name, @mygym_id, '- 未設定 -')
+    m << q.date_select_block(:date, '日付')
+    m << q.time_select_block(:start_time, '開始時間', {default: Time.current.since(1.hours), minute_step: 10})
+    m << q.time_select_block(:end_time, '終了時間', {default: Time.current.since(2.hours), minute_step: 10})
+    m << q.drop_down_collection_block(:gym_id, 'ジム', @gyms, :id, :name, {selected: @mygym_id, include_blank: '- 未設定 -'})
   end
-  m << p.textarea_field_block(:description, '説明文')
 end %>
 <%= render @is_commit ? 'commit_form' : 'result_form', f: f %>

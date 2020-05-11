@@ -1,0 +1,15 @@
+<li id='activity-<%= activity.id %>'>
+  <%= link_to gravatar_for(activity.user, size: 50), [:user, activity.user] %>
+  <span class='user'><%= link_to activity.user.uid, [:user, activity.user] %></span>
+  <span class='content'>
+    <%= activity.date %>
+    <%= activity.description %>
+  </span>
+  <span class='timestamp'>
+    <%= time_ago_in_words(activity.created_at) %> 前に投稿
+    <% if current_user == activity.user %>
+      <%= link_to 'delete', [:user, activity], method: :delete,
+                            data: { confirm: '本当に削除しますか？' } %>
+    <% end %>
+  </span>
+</li>

@@ -78,8 +78,6 @@ class User::ActivitiesController < User::Base
     activity.assign_attributes(activity_params)
     if activity.status == Settings.activity.status.recorded
       activity.level_count.assign_attributes(level_count_params)
-    else
-      activity.level_count.mark_for_destruction
     end
 
     if activity.save
@@ -87,7 +85,7 @@ class User::ActivitiesController < User::Base
       redirect_to action: 'index'
     else
       flash.alert = activity.errors.full_messages.join('　')
-      render action: 'edit'
+      redirect_to [ :edit, :user, activity ]
     end
   end
 

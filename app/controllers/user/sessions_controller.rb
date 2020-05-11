@@ -19,8 +19,8 @@ class User::SessionsController < User::Base
       flash.notice = 'ログインしました。'
       redirect_to :user_home
     else
-      flash.alert = 'メールアドレスまたはパスワードが正しくありません。'
-      redirect_back fallback_location: :user_login, flash: { user: user }
+      flash.now.alert = 'メールアドレスまたはパスワードが正しくありません。'
+      render action: 'new'
     end
   end
 

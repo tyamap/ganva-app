@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    attributes:
+      level_count:
+        level0: レベル１
+        level1: レベル２
+        level2: レベル３
+        level3: レベル４
+        level4: レベル５
+        level5: レベル６
+        level6: レベル７
+        level7: レベル８
+        level8: レベル９
+        level9: レベル１０

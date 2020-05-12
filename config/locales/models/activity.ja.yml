@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    attributes:
+      activity:
+        date: 実施日
+        description: 説明
+        end_time: 終了時間
+        level: レベル
+        start_time: 開始時間
+    errors:
+      models:
+        activity:
+          attributes:
+            date:
+              before: には1年後の日付より前の日付を指定してください。
+              after_or_equal_to: には2000年1月1日以降の日付を指定してください。
+            start_time:
+              cannot_be_before_current_time: には現在日時よりも後の日時を指定してください。
+            end_time:
+              after: には%{attribute}より後の時間を指定してください。
+              cannot_be_after_current_time: には現在日時よりも前の日時を指定してください。

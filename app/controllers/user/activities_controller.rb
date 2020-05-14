@@ -47,16 +47,40 @@ class User::ActivitiesController < User::Base
       activity.level_count.mark_for_destruction
     end
 
-    if activity.save!
+    if activity.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
-      flash.alert = '入力に誤りがあります。'
-      render action: 'new'
+      flash.alert = activity.errors.full_messages.join('　')
+      if params[:activity][:level_count]
+        redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
+      else
+        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
+      end
     end
   end
 
-  def edit; end
+  def edit
+    @activity = Activity.find(params[:id])
+    @is_commit = @activity.status != Settings.activity.status.recorded
+    @gyms = Gym.all
+    @mygym_id = current_user.gym&.id
+    render action: 'edit'
+  end
+
+  def update
+    activity = Activity.find(params[:id])
+    activity.assign_attributes(activity_params)
+    activity.level_count.assign_attributes(level_count_params) if activity.status == Settings.activity.status.recorded
+
+    if activity.save
+      flash.notice = 'アクティビティを更新しました。'
+      redirect_to action: 'index'
+    else
+      flash.alert = activity.errors.full_messages.join('　')
+      redirect_to [:edit, :user, activity]
+    end
+  end
 
   def destroy
     activity_form = Activity.find(params[:id])

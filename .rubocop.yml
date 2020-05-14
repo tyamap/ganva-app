@@ -9,7 +9,7 @@ AllCops:
     Exclude:
         - 'config.ru'
         - 'bin/**'
-        - 'lib/**'
+        - 'lib/**/*'
         - 'db/**/*'
         - 'config/**/*'
         - 'script/**/*'

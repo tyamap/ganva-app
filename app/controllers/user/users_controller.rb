@@ -9,19 +9,18 @@ class User::UsersController < User::Base
   end
 
   def new
-    @user = User.new(flash[:user])
+    @user = User.new
   end
 
   def create
-    user = User.new(user_params)
-    user.name = user_params[:uid]
-    if user.save
-      session[:user_id] = user.id
+    @user = User.new(user_params)
+    @user.name = user_params[:uid]
+    if @user.save
+      session[:user_id] = @user.id
       session[:last_access_time] = Time.current
       redirect_to :user_home
     else
-      flash.alert = user.errors.full_messages.join('　')
-      redirect_back fallback_location: :user_users_new, flash: { user: user }
+      render action: 'new'
     end
   end
 

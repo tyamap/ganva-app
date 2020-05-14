@@ -1,11 +1,11 @@
-<% @title ||= 'アクティビティの追加' %>
+<% @title = 'アクティビティ編集' %>
 <h1><%= @title %></h1>
 
 <div class='form-group' id='generic-form'>
-  <%= form_with model: @activity, url: :user_activities do |f| %>
+  <%= form_with model: @activity, url: [:user, @activity] do |f| %>
     <%= render 'form', f: f %>
     <div class='button'>
-      <%= f.submit '追加' , class: "btn btn-lg btn-primary btn-block btn-submit" %>
+      <%= f.submit '更新' , class: "btn btn-lg btn-primary btn-block btn-submit" %>
       <%= link_to 'キャンセル', :user_activities, class: "btn btn-lg btn-block btn-cancel"  %>
     </div>
   <% end %>

@@ -2,7 +2,7 @@
   <%= link_to gravatar_for(activity.user, size: 50), [:user, activity.user] %>
   <span class='user'><%= link_to activity.user.uid, [:user, activity.user] %></span>
   <span class='content'>
-    <%= activity.date %>
+    <%= link_to activity.date, [:user, activity.user, activity] %>
     <%= activity.description %>
   </span>
   <span class='timestamp'>

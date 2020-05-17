@@ -21,7 +21,7 @@ class User::ActivitiesController < User::Base
   def new_commit
     @title = '宣言の追加'
     @is_commit = true
-    @activity = Activity.new(flash[:activity])
+    @activity_form = User::ActivityForm.new(current_user.id)
     @gyms = Gym.all
     @mygym_id = current_user.gym&.id
     render action: 'new'
@@ -30,8 +30,8 @@ class User::ActivitiesController < User::Base
   def new_result
     @title = '結果の追加'
     @is_commit = false
-    @activity = Activity.new(flash[:activity])
-    @activity.build_level_count
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.activity.build_level_count
     @gyms = Gym.all
     @mygym_id = current_user.gym&.id
     render action: 'new'
@@ -55,24 +55,23 @@ class User::ActivitiesController < User::Base
   end
 
   def edit
-    @activity = Activity.find(params[:id])
-    @is_commit = @activity.status != Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
+    @is_commit = @activity_form.activity.status != Settings.activity.status.recorded
     @gyms = Gym.all
     @mygym_id = current_user.gym&.id
     render action: 'edit'
   end
 
   def update
-    activity = Activity.find(params[:id])
-    activity.assign_attributes(activity_params)
-    activity.level_count.assign_attributes(level_count_params) if activity.status == Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
-    else
-      flash.alert = activity.errors.full_messages.join('　')
-      redirect_to [:edit, :user, activity]
+    # else
+    #   flash.alert = activity.errors.full_messages.join('　')
+    #   redirect_to [:edit, :user, activity]
     end
   end
 

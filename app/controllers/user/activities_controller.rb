@@ -44,13 +44,13 @@ class User::ActivitiesController < User::Base
     if @activity_form.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
-      # else
-      #   flash.alert = activity.errors.full_messages.join('　')
-      #   if params[:activity][:level_count]
-      #     redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
-      #   else
-      #     redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
-      #   end
+    else
+      flash.alert = @activity_form.activity.errors.full_messages.join('　')
+      if params[:activity][:level_count]
+        redirect_back fallback_location: :result_new_user_activities, flash: { activity: @activity_form.activity }
+      else
+        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: @activity_form.activity }
+      end
     end
   end
 
@@ -69,9 +69,9 @@ class User::ActivitiesController < User::Base
     if @activity_form.save
       flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
-    # else
-    #   flash.alert = activity.errors.full_messages.join('　')
-    #   redirect_to [:edit, :user, activity]
+    else
+      flash.alert = @activity_form.activity.errors.full_messages.join('　')
+      redirect_to [:edit, :user, @activity_form.activity]
     end
   end
 

@@ -38,25 +38,19 @@ class User::ActivitiesController < User::Base
   end
 
   def create
-    activity = current_user.activities.new(activity_params)
-    activity.build_level_count
-    if params[:activity][:level_count]
-      activity.level_count.assign_attributes(level_count_params)
-      activity.status = Settings.activity.status.recorded
-    else
-      activity.level_count.mark_for_destruction
-    end
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
-    else
-      flash.alert = activity.errors.full_messages.join('　')
-      if params[:activity][:level_count]
-        redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
-      else
-        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
-      end
+      # else
+      #   flash.alert = activity.errors.full_messages.join('　')
+      #   if params[:activity][:level_count]
+      #     redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
+      #   else
+      #     redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
+      #   end
     end
   end
 

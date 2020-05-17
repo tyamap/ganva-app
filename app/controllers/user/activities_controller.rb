@@ -19,66 +19,43 @@ class User::ActivitiesController < User::Base
   end
 
   def new_commit
-    @title = '宣言の追加'
-    @is_commit = true
-    @activity = Activity.new(flash[:activity])
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
+    @activity_form = User::ActivityForm.new(current_user.id)
     render action: 'new'
   end
 
   def new_result
-    @title = '結果の追加'
-    @is_commit = false
-    @activity = Activity.new(flash[:activity])
-    @activity.build_level_count
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.activity.status = Settings.activity.status.recorded
     render action: 'new'
   end
 
   def create
-    activity = current_user.activities.new(activity_params)
-    activity.build_level_count
-    if params[:activity][:level_count]
-      activity.level_count.assign_attributes(level_count_params)
-      activity.status = Settings.activity.status.recorded
-    else
-      activity.level_count.mark_for_destruction
-    end
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
-      flash.alert = activity.errors.full_messages.join('　')
-      if params[:activity][:level_count]
-        redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
-      else
-        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
-      end
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'new'
     end
   end
 
   def edit
-    @activity = Activity.find(params[:id])
-    @is_commit = @activity.status != Settings.activity.status.recorded
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
-    render action: 'edit'
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
   end
 
   def update
-    activity = Activity.find(params[:id])
-    activity.assign_attributes(activity_params)
-    activity.level_count.assign_attributes(level_count_params) if activity.status == Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
     else
-      flash.alert = activity.errors.full_messages.join('　')
-      redirect_to [:edit, :user, activity]
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'edit'
     end
   end
 

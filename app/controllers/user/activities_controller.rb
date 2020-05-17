@@ -19,21 +19,13 @@ class User::ActivitiesController < User::Base
   end
 
   def new_commit
-    @title = '宣言の追加'
-    @is_commit = true
     @activity_form = User::ActivityForm.new(current_user.id)
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
     render action: 'new'
   end
 
   def new_result
-    @title = '結果の追加'
-    @is_commit = false
     @activity_form = User::ActivityForm.new(current_user.id)
-    @activity_form.activity.build_level_count
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
+    @activity_form.activity.status = Settings.activity.status.recorded
     render action: 'new'
   end
 
@@ -45,21 +37,13 @@ class User::ActivitiesController < User::Base
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
-      flash.alert = @activity_form.activity.errors.full_messages.join('　')
-      if params[:activity][:level_count]
-        redirect_back fallback_location: :result_new_user_activities, flash: { activity: @activity_form.activity }
-      else
-        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: @activity_form.activity }
-      end
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'new'
     end
   end
 
   def edit
     @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
-    @is_commit = @activity_form.activity.status != Settings.activity.status.recorded
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
-    render action: 'edit'
   end
 
   def update
@@ -70,8 +54,8 @@ class User::ActivitiesController < User::Base
       flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
     else
-      flash.alert = @activity_form.activity.errors.full_messages.join('　')
-      redirect_to [:edit, :user, @activity_form.activity]
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'edit'
     end
   end
 

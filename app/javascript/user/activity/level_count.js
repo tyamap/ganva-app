@@ -1,22 +1,20 @@
-function count_up() {
-  val = $('.level-counter input').val();
-  if (val < 10000) {
-    $('.level-counter input').val(++val);
-  }
-}
-
-function count_down() {
-  val = $('.level-counter input').val();
-  if (val > 0) {
-    $('.level-counter input').val(--val);
-  }
-}
-
 $(document).on('ready turbolinks:load', () => {
-  $('.level-counter .plus').on('click', () => {
-    count_up();
-  });
-  $('.level-counter .minus').on('click', () => {
-    count_down();
+  $("input[type='number']").each(function () {
+    let el = $(this);
+    el.wrap('<span class="level-counter"></span>');
+    el.before('<span class="minus">ー</span>');
+    el.after('<span class="plus">＋</span>');
+
+    // カウントダウン
+    el.parent().on('click', '.minus', function () {
+      if (el.val() > parseInt(el.attr('min')))
+        el.val( function(_i, oldval) { return --oldval; });
+    });
+    
+    // カウントアップ
+    el.parent().on('click', '.plus', function () {
+      if (el.val() < parseInt(el.attr('max')))
+        el.val( function(_i, oldval) { return ++oldval; });
+    });
   });
 });

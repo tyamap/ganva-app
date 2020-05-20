@@ -1,4 +1,6 @@
 class User::ActivitiesController < User::Base
+  before_action :access_auth, only: %i[edit update]
+
   def index
     @user = if params[:user_id]
               User.find(params[:user_id])
@@ -67,6 +69,14 @@ class User::ActivitiesController < User::Base
   end
 
   private
+
+  def access_auth
+    owner = Activity.find(params[:id]).user
+    return if current_user == owner
+
+    flash.alert = '編集権限がありません。'
+    redirect_back(fallback_location: :user_home)
+  end
 
   def activity_params
     params.require(:activity).permit(

@@ -1,3 +1,5 @@
+@import "colors";
+
 span.label {
   display: inline;
   padding: .2em .3em .2em;
@@ -28,4 +30,70 @@ span.label {
 }
 .label-danger {
   background-color: #d9534f;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    transform: rotate(90deg);
+    height: 80px;
+    opacity: 0;
+}
+
+input[type=number] {
+  margin: 0;
+  float: left;
+  width: 70px;
+  height: 35px;
+  padding: 0;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: $dark_magenta;
+  border: 2px $dark_magenta solid;
+  background: none;
+  outline: none;
+  pointer-events: none;
+}
+
+span.level-counter {
+  position: absolute;
+  height: 40px;
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+span.level-counter > .minus,
+span.level-counter > .plus {
+  float: left;
+  display: block;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2em;
+  line-height: 33px;
+  color: $dark_magenta;
+  border: 2px $dark_magenta solid;
+  border-right: 0;
+  border-radius: 2px 0 0 2px;
+  cursor: pointer;
+}
+
+span.level-counter > .plus {
+  top: 0;
+  border: 2px $dark_magenta solid;
+  border-left: 0;
+  border-radius: 0 2px 2px 0;
+}
+
+span.level-counter > .minus:hover,
+span.level-counter > .plus:hover {
+  background: $dark_gray;
+  color: $dark_magenta;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }

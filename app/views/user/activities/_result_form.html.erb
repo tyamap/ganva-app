@@ -2,7 +2,7 @@
 <%= f.fields_for :level_count, f.object.level_count do |ff| %>
   <%= markup do |m|
     p = UserFormPresenter.new(ff, self)
-    p.with_options(required: true, min: 0) do |q|
+    p.with_options(required: true, min: 0, max: 9999) do |q|
       m << q.number_field_block(:level0, 'レベル１')
       m << q.number_field_block(:level1, 'レベル２')
       m << q.number_field_block(:level2, 'レベル３')

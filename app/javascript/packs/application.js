@@ -7,3 +7,4 @@ import 'bootstrap';
 import '../stylesheets/application';
 
 import '../shared/header.js';
+import '../user/activity/level_count.js';

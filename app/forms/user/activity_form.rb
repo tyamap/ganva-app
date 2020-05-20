@@ -8,7 +8,7 @@ class User::ActivityForm
     @activity = activity
     @activity ||= Activity.new
     @activity.user_id = user_id
-    @activity.build_level_count
+    @activity.build_level_count unless @activity.level_count
   end
 
   def assign_attributes(params = {})

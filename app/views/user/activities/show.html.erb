@@ -1,4 +1,4 @@
-<% @title = @activity.date %>
+<% @title = "アクティビティ詳細 #{@activity.date}" %>
 <h1><%= @title %> <%= render 'status_label', status: @activity.status %></h1>
 
 <% if @activity.user == current_user %>

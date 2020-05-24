@@ -2,33 +2,35 @@
   <td><%= "#{activity.date} #{activity.start_time.strftime('%H:%M')}〜#{activity.end_time.strftime('%H:%M')}" %></td>
   <td><%= activity.gym.name %></td>
   <td><%= render 'status_label', status: activity.status %></td>
+
+  <td class='actions'>
+    <% if @user == current_user %>
+      <% case activity.status %>
+      <% when Settings.activity.status.ready %>
+        <% if activity.start_datetime > Time.current %>
+          <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
+          <%= link_to '中止', [ 'abort', :user, activity ], method: :post, class: 'btn btn-outline-danger',
+            data: { confirm: '本当に中止しますか？' } %>
+        <% else %>
+          <%= link_to '完了', [ 'done', :user, activity ], method: :post, class: 'btn btn-outline-warning' %>
+        <% end %>
+      <% when Settings.activity.status.recorded %>
+        <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
+      <% when Settings.activity.status.aborted %>
+        <% if activity.end_datetime > Time.current %>
+          <%= link_to '再開', [ 'ready', :user, activity ], method: :post, class: 'btn btn-outline-info' %>
+        <% end %>
+      <% when Settings.activity.status.done %>
+        <%= link_to '記録', [ 'record', :user, activity ], class: 'btn btn-outline-info' %>
+      <% end %>
+    <% end %>
+  </td>
+
   <td class='actions'>
     <%= link_to '詳細', [ :user, @user, activity ], class: 'btn btn-primary' %>
     <% if @user == current_user %>
-      <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
-      <!-- TODO: 状態によって編集リンクを作成
-      <% case activity.status %>
-        <% when Settings.activity.status.ready %>
-          <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
-          <%= link_to '中止', [ :edit, :user, activity ], class: 'btn btn-outline-danger' %>
-          <%= link_to '完了', [ :edit, :user, activity ], class: 'btn btn-outline-warning' %>
-          <%= link_to '記録', [ :edit, :user, activity ], class: 'btn btn-outline-success' %>
-        <% when Settings.activity.status.recorded %>
-          <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
-        <% when Settings.activity.status.aborted %>
-          <%= link_to '再開', [ :edit, :user, activity ], class: 'btn btn-outline-info' %>
-        <% when Settings.activity.status.done %>
-          <%= link_to '編集', [ :edit, :user, activity ], class: 'btn btn-outline-primary' %>
-          <%= link_to '記録', [ :edit, :user, activity ], class: 'btn btn-outline-success' %>
-      <% end %>
-      -->
       <%= link_to '削除', [ :user, activity ], method: :delete, class: 'btn btn-danger',
         data: { confirm: '本当に削除しますか？' } %>
-      <%= link_to '中止', [ 'abort', :user, activity ], method: :post, class: 'btn btn-outline-danger',
-        data: { confirm: '本当に中止しますか？' } %>
-      <%= link_to '完了', [ 'done', :user, activity ], method: :post, class: 'btn btn-outline-warning' %>
-      <%= link_to '再開', [ 'ready', :user, activity ], method: :post, class: 'btn btn-outline-info' %>
-      <%= link_to '記録', [ 'record', :user, activity ], class: 'btn btn-outline-primary' %>
     <% end %>
   </td>
 </tr>

@@ -24,11 +24,11 @@ module ActivityStatusHolder
 
     case status_was
     when Settings.activity.status.recorded
-      errors.add(:status, 'cannot change from recorded')
+      errors.add(:status, '記録済みのものは変更できません。')
     when Settings.activity.status.aborted
-      errors.add(:status, 'cannot change from aborted') if status != Settings.activity.status.ready
+      errors.add(:status, '中止済みのもは変更できません。') if status != Settings.activity.status.ready
     when Settings.activity.status.done
-      errors.add(:status, 'cannot change from done') if status != Settings.activity.status.recorded
+      errors.add(:status, '完了済みのものは変更できません。') if status != Settings.activity.status.recorded
     end
   end
 end

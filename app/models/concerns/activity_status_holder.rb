@@ -12,9 +12,11 @@ module ActivityStatusHolder
   def with_time
     case status
     when Settings.activity.status.aborted
-      errors.add(:status, '終了日時が過ぎたものは中止できません') if end_datetime < Time.current
+      errors.add(:status, '終了日時が過ぎたものは中止できません。') if end_datetime < Time.current
     when Settings.activity.status.done
-      errors.add(:status, '開始日時に達していないものは完了できません') if start_datetime > Time.current
+      errors.add(:status, '開始日時に達していないものは完了できません。') if start_datetime > Time.current
+    when Settings.activity.status.ready
+      errors.add(:status, '終了日時が過ぎたものは再開できません。') if start_datetime < Time.current
     end
   end
 

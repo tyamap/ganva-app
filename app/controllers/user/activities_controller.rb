@@ -1,10 +1,8 @@
 class User::ActivitiesController < User::Base
+  before_action :access_auth, only: %i[edit update abort done ready record]
+
   def index
-    @user = if params[:user_id]
-              User.find(params[:user_id])
-            else
-              current_user
-            end
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     @activities = @user.activities.order(date: :desc).includes(:gym)
   end
 
@@ -19,66 +17,43 @@ class User::ActivitiesController < User::Base
   end
 
   def new_commit
-    @title = '宣言の追加'
-    @is_commit = true
-    @activity = Activity.new(flash[:activity])
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
+    @activity_form = User::ActivityForm.new(current_user.id)
     render action: 'new'
   end
 
   def new_result
-    @title = '結果の追加'
-    @is_commit = false
-    @activity = Activity.new(flash[:activity])
-    @activity.build_level_count
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.activity.status = Settings.activity.status.recorded
     render action: 'new'
   end
 
   def create
-    activity = current_user.activities.new(activity_params)
-    activity.build_level_count
-    if params[:activity][:level_count]
-      activity.level_count.assign_attributes(level_count_params)
-      activity.status = Settings.activity.status.recorded
-    else
-      activity.level_count.mark_for_destruction
-    end
+    @activity_form = User::ActivityForm.new(current_user.id)
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを追加しました。'
       redirect_to action: 'index'
     else
-      flash.alert = activity.errors.full_messages.join('　')
-      if params[:activity][:level_count]
-        redirect_back fallback_location: :result_new_user_activities, flash: { activity: activity }
-      else
-        redirect_back fallback_location: :commit_new_user_activities, flash: { activity: activity }
-      end
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'new'
     end
   end
 
   def edit
-    @activity = Activity.find(params[:id])
-    @is_commit = @activity.status != Settings.activity.status.recorded
-    @gyms = Gym.all
-    @mygym_id = current_user.gym&.id
-    render action: 'edit'
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
   end
 
   def update
-    activity = Activity.find(params[:id])
-    activity.assign_attributes(activity_params)
-    activity.level_count.assign_attributes(level_count_params) if activity.status == Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, Activity.find(params[:id]))
+    @activity_form.assign_attributes(params)
 
-    if activity.save
+    if @activity_form.save
       flash.notice = 'アクティビティを更新しました。'
       redirect_to action: 'index'
     else
-      flash.alert = activity.errors.full_messages.join('　')
-      redirect_to [:edit, :user, activity]
+      flash.now.alert = '入力に誤りがあります。'
+      render action: 'edit'
     end
   end
 
@@ -89,18 +64,61 @@ class User::ActivitiesController < User::Base
     redirect_to :user_activities
   end
 
-  private
+  def abort
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
 
-  def activity_params
-    params.require(:activity).permit(
-      :date, :start_time, :end_time, :gym_id, :level, :description
-    )
+    activity.status = Settings.activity.status.aborted
+    if activity.save
+      flash.notice = 'アクティビティを中止しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
   end
 
-  def level_count_params
-    params.require(:activity).require(:level_count).permit(
-      :level0, :level1, :level2, :level3, :level4,
-      :level5, :level6, :level7, :level8, :level9
-    )
+  def done
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
+
+    activity.status = Settings.activity.status.done
+    if activity.save
+      flash.notice = 'アクティビティを完了しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
+  end
+
+  def ready
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.aborted
+
+    activity.status = Settings.activity.status.ready
+    if activity.save
+      flash.notice = 'アクティビティを再開しました。'
+    else
+      flash.alert = activity.errors[:status].first
+    end
+    redirect_to :user_activities
+  end
+
+  def record
+    activity = Activity.find(params[:id])
+    return redirect_to :user_activities if activity.status != Settings.activity.status.done
+
+    activity.status = Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, activity)
+    render action: 'edit'
+  end
+
+  private
+
+  def access_auth
+    owner = Activity.find(params[:id]).user
+    return if current_user == owner
+
+    flash.alert = '編集権限がありません。'
+    redirect_back(fallback_location: :user_home)
   end
 end

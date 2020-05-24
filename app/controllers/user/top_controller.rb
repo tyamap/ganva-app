@@ -10,6 +10,6 @@ class User::TopController < User::Base
   end
 
   def home
-    @feed_items = current_user.feed.order(created_at: :desc)
+    @feed_items = current_user.feed.order(updated_at: :desc)
   end
 end

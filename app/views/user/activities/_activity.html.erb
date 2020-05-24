@@ -2,14 +2,23 @@
   <%= link_to gravatar_for(activity.user, size: 50), [:user, activity.user] %>
   <span class='user'><%= link_to activity.user.uid, [:user, activity.user] %></span>
   <span class='content'>
-    <%= link_to activity.date, [:user, activity.user, activity] %>
+    <%= link_to activity.start_datetime.strftime('%m月%d日 %H:%M'), [:user, activity.user, activity] %> から 
+    <%= link_to activity.gym.name, [:user, activity.gym] %>
+    <%= 
+    if activity.status == Settings.activity.status.ready
+      'で登る宣言をしました！'
+    elsif activity.status == Settings.activity.status.aborted
+      'で登る予定を中止しました。'
+    elsif activity.status == Settings.activity.status.done
+      'で登りました！'
+    elsif activity.status == Settings.activity.status.recorded
+      'で登った記録をつけました！'
+    end %>
+  </span>
+  <span class='description'>
     <%= activity.description %>
   </span>
   <span class='timestamp'>
-    <%= time_ago_in_words(activity.created_at) %> 前に投稿
-    <% if current_user == activity.user %>
-      <%= link_to 'delete', [:user, activity], method: :delete,
-                            data: { confirm: '本当に削除しますか？' } %>
-    <% end %>
+    <%= time_ago_in_words(activity.updated_at) %>前
   </span>
 </li>

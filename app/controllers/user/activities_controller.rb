@@ -2,11 +2,7 @@ class User::ActivitiesController < User::Base
   before_action :access_auth, only: %i[edit update abort done ready record]
 
   def index
-    @user = if params[:user_id]
-              User.find(params[:user_id])
-            else
-              current_user
-            end
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     @activities = @user.activities.order(date: :desc).includes(:gym)
   end
 
@@ -124,18 +120,5 @@ class User::ActivitiesController < User::Base
 
     flash.alert = '編集権限がありません。'
     redirect_back(fallback_location: :user_home)
-  end
-
-  def activity_params
-    params.require(:activity).permit(
-      :date, :start_time, :end_time, :gym_id, :level, :description
-    )
-  end
-
-  def level_count_params
-    params.require(:activity).require(:level_count).permit(
-      :level0, :level1, :level2, :level3, :level4,
-      :level5, :level6, :level7, :level8, :level9
-    )
   end
 end

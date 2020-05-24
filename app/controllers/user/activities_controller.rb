@@ -1,12 +1,8 @@
 class User::ActivitiesController < User::Base
-  before_action :access_auth, only: %i[edit update]
+  before_action :access_auth, only: %i[edit update abort done ready record]
 
   def index
-    @user = if params[:user_id]
-              User.find(params[:user_id])
-            else
-              current_user
-            end
+    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     @activities = @user.activities.order(date: :desc).includes(:gym)
   end
 
@@ -68,6 +64,54 @@ class User::ActivitiesController < User::Base
     redirect_to :user_activities
   end
 
+  def abort
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
+
+    activity.status = Settings.activity.status.aborted
+    if activity.save
+      flash.notice = 'アクティビティを中止しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
+  end
+
+  def done
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
+
+    activity.status = Settings.activity.status.done
+    if activity.save
+      flash.notice = 'アクティビティを完了しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
+  end
+
+  def ready
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.aborted
+
+    activity.status = Settings.activity.status.ready
+    if activity.save
+      flash.notice = 'アクティビティを再開しました。'
+    else
+      flash.alert = activity.errors[:status].first
+    end
+    redirect_to :user_activities
+  end
+
+  def record
+    activity = Activity.find(params[:id])
+    return redirect_to :user_activities if activity.status != Settings.activity.status.done
+
+    activity.status = Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, activity)
+    render action: 'edit'
+  end
+
   private
 
   def access_auth
@@ -76,18 +120,5 @@ class User::ActivitiesController < User::Base
 
     flash.alert = '編集権限がありません。'
     redirect_back(fallback_location: :user_home)
-  end
-
-  def activity_params
-    params.require(:activity).permit(
-      :date, :start_time, :end_time, :gym_id, :level, :description
-    )
-  end
-
-  def level_count_params
-    params.require(:activity).require(:level_count).permit(
-      :level0, :level1, :level2, :level3, :level4,
-      :level5, :level6, :level7, :level8, :level9
-    )
   end
 end

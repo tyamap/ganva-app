@@ -1,5 +1,30 @@
-<% @title = @activity.date %>
+<% @title = "アクティビティ詳細 #{@activity.date}" %>
 <h1><%= @title %> <%= render 'status_label', status: @activity.status %></h1>
+
+<% if @activity.user == current_user %>
+<div class="links">
+    <% case @activity.status %>
+    <% when Settings.activity.status.ready %>
+      <% if @activity.start_datetime > Time.current %>
+        <%= link_to '編集', [ :edit, :user, @activity ], class: 'btn btn-outline-primary' %>
+        <%= link_to '中止', [ 'abort', :user, @activity ], method: :post, class: 'btn btn-outline-danger',
+          data: { confirm: '本当に中止しますか？' } %>
+      <% else %>
+        <%= link_to '完了', [ 'done', :user, @activity ], method: :post, class: 'btn btn-outline-warning' %>
+      <% end %>
+    <% when Settings.activity.status.recorded %>
+      <%= link_to '編集', [ :edit, :user, @activity ], class: 'btn btn-outline-primary' %>
+    <% when Settings.activity.status.aborted %>
+      <% if @activity.end_datetime > Time.current %>
+        <%= link_to '再開', [ 'ready', :user, @activity ], method: :post, class: 'btn btn-outline-info' %>
+      <% end %>
+    <% when Settings.activity.status.done %>
+      <%= link_to '記録', [ 'record', :user, @activity ], class: 'btn btn-outline-info' %>
+    <% end %>
+  <%= link_to "削除", [ :user, @activity ], method: :delete, class: 'btn btn-danger',
+    data: { confirm: "本当に削除しますか？" } %>
+</div>
+<% end %> 
 
 <div class="table-wrapper">
   <table class="attributes">
@@ -20,11 +45,6 @@
       <td><%= @activity.description %></td>
     </tr>
   </table>
-</div>
-
-<div class="links">
-  <%= link_to "編集", :edit_user_activity %> | 
-  <%= link_to "削除", [ :user, @activity ], method: :delete, data: { confirm: "本当に削除しますか？" }%>
 </div>
 
 <%

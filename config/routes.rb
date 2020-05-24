@@ -13,6 +13,12 @@ Rails.application.routes.draw do
         get 'commit/new', action: 'new_commit'
         get 'result/new', action: 'new_result'
       end
+      member do
+        post 'abort', action: 'abort'
+        post 'done', action: 'done'
+        post 'ready', action: 'ready'
+        get 'record', action: 'record'
+      end
     end
     resources :achievements, only: %i[index show]
     resources :gyms, only: %i[index show]

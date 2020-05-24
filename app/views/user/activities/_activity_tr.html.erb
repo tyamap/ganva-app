@@ -24,6 +24,11 @@
       -->
       <%= link_to '削除', [ :user, activity ], method: :delete, class: 'btn btn-danger',
         data: { confirm: '本当に削除しますか？' } %>
+      <%= link_to '中止', [ 'abort', :user, activity ], method: :post, class: 'btn btn-outline-danger',
+        data: { confirm: '本当に中止しますか？' } %>
+      <%= link_to '完了', [ 'done', :user, activity ], method: :post, class: 'btn btn-outline-warning' %>
+      <%= link_to '再開', [ 'ready', :user, activity ], method: :post, class: 'btn btn-outline-info' %>
+      <%= link_to '記録', [ 'record', :user, activity ], class: 'btn btn-outline-primary' %>
     <% end %>
   </td>
 </tr>

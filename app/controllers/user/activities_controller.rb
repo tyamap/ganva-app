@@ -1,5 +1,5 @@
 class User::ActivitiesController < User::Base
-  before_action :access_auth, only: %i[edit update]
+  before_action :access_auth, only: %i[edit update abort done ready record]
 
   def index
     @user = if params[:user_id]
@@ -66,6 +66,54 @@ class User::ActivitiesController < User::Base
     activity_form.destroy!
     flash.notice = 'アクティビティを削除しました。'
     redirect_to :user_activities
+  end
+
+  def abort
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
+
+    activity.status = Settings.activity.status.aborted
+    if activity.save
+      flash.notice = 'アクティビティを中止しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
+  end
+
+  def done
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.ready
+
+    activity.status = Settings.activity.status.done
+    if activity.save
+      flash.notice = 'アクティビティを完了しました。'
+    else
+      flash.alert = activity.errors.first[1]
+    end
+    redirect_to :user_activities
+  end
+
+  def ready
+    activity = Activity.find(params[:id])
+    return if activity.status != Settings.activity.status.aborted
+
+    activity.status = Settings.activity.status.ready
+    if activity.save
+      flash.notice = 'アクティビティを再開しました。'
+    else
+      flash.alert = activity.errors[:status].first
+    end
+    redirect_to :user_activities
+  end
+
+  def record
+    activity = Activity.find(params[:id])
+    return redirect_to :user_activities if activity.status != Settings.activity.status.done
+
+    activity.status = Settings.activity.status.recorded
+    @activity_form = User::ActivityForm.new(current_user.id, activity)
+    render action: 'edit'
   end
 
   private

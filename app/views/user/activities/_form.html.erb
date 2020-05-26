@@ -5,7 +5,8 @@
     m << q.date_select_block(:date, '日付')
     m << q.time_select_block(:start_time, '開始時間', {default: Time.current.since(1.hours), minute_step: 10})
     m << q.time_select_block(:end_time, '終了時間', {default: Time.current.since(2.hours), minute_step: 10})
-    m << q.drop_down_collection_block(:gym_id, 'ジム', Gym.all, :id, :name, {selected: current_user.gym&.id})
+    m << q.drop_down_collection_block(:gym_id, 'ジム', Gym.all, :id, :name, {
+      selected: @activity_form.activity.gym ? @activity_form.activity.gym.id : current_user.gym&.id})
   end
 end %>
 <%= render @activity_form.activity.status == Settings.activity.status.recorded ? 'result_form' : 'commit_form', f: f %>
